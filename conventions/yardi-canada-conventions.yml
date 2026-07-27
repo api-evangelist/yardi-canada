@@ -1,0 +1,90 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/yardi-canada-status-openapi.yml
+sources:
+  - openapi/yardi-canada-status-openapi.yml
+  - https://status.yardi.com/api
+  - https://mcp.virtuoso.ai/.well-known/oauth-authorization-server
+  - https://resources.yardi.com/legal/rc-api-tou/
+summary: >-
+  Cross-cutting semantics can only be stated honestly for the two surfaces that are
+  actually observable — the anonymous status API and the MCP authorization layer. For
+  the Voyager Standard Interfaces and the RentCafe API, every convention below is
+  unknown rather than absent: Yardi publishes no reference documentation, so there is
+  nothing to record about pagination, idempotency, tracing or error envelopes without
+  a Data Exchange Agreement. That distinction is the point of this file.
+surfaces:
+  status_api:
+    base_url: https://status.yardi.com/api/v2
+    authentication: none
+    media_type: application/json; charset=utf-8
+    versioning:
+      style: uri-path
+      current: v2
+      note: The version is baked into the path; no version header, no date-pinning.
+    pagination:
+      supported: false
+      note: >-
+        Collection endpoints return a fixed recent window with no page, cursor, limit
+        or offset parameter. incidents.json and scheduled-maintenances.json each
+        returned exactly 50 items with no way to request more or page backwards. Deep
+        history is not reachable through the API.
+    filtering:
+      supported: partial
+      note: Filtering is expressed as separate paths (incidents/unresolved.json, scheduled-maintenances/upcoming.json, scheduled-maintenances/active.json) rather than query parameters.
+    idempotency:
+      supported: not-applicable
+      note: Every operation is a GET. There is no write surface, therefore no idempotency key contract.
+    field_expansion: none
+    metadata: none
+    request_tracing:
+      request_id_header: none observed
+    rate_limits:
+      published: false
+      headers_observed: none
+      note: No rate-limit headers were observed on any 200 response; Atlassian Statuspage does throttle, but Yardi publishes no limit.
+    error_envelope:
+      format: unknown
+      note: Only 200 responses were observed. No error contract is documented and no problem+json media type is used.
+    caching:
+      note: Responses carry Statuspage defaults; poll frequency is not specified by Yardi.
+  virtuoso_mcp:
+    base_url: https://mcp.virtuoso.ai
+    authentication: OAuth 2.1 authorization code + PKCE (S256), dynamic client registration, bearer token in the Authorization header
+    transport: HTTP (JSON-RPC); concrete path not confirmed — anonymous POSTs are answered by Cloudflare with 403
+    idempotency:
+      supported: unknown
+      note: >-
+        The connector is declared Read & Write and its published capabilities include
+        invoice approval and work-order management, so write idempotency matters — but
+        no idempotency contract is published, and tools/list could not be introspected
+        anonymously to inspect input schemas.
+    authorization_boundary: Caller's existing Yardi user permissions; OAuth scopes are identity-only (openid, profile, email, offline_access).
+    error_envelope: JSON-RPC (assumed by protocol, not observed)
+  gated_interfaces:
+    surfaces: [Voyager Standard Interfaces, RentCafe API]
+    base_url: not published
+    authentication: opaque access token issued under a signed agreement
+    pagination: unknown
+    idempotency: unknown
+    request_tracing: unknown
+    error_envelope: unknown
+    rate_limits:
+      published: false
+      note: >-
+        The RentCafe APIv2 program is described as transaction-based pricing with an
+        annual price cap — a commercial meter, not a published technical rate limit.
+    note: Access requires acceptance into the Interface Partnership Program plus a Data Exchange Agreement per interface type.
+idempotency:
+  supported: false
+  detail: >-
+    No idempotency key, header or retry-safety contract is published on any Yardi
+    surface. The only observable API is read-only; the write-capable surfaces (MCP
+    connector, gated interfaces) publish no idempotency semantics at all. Recorded as
+    a genuine gap, not folded into a claim.
+cross_links:
+  authentication: authentication/yardi-canada-authentication.yml
+  scopes: scopes/yardi-canada-scopes.yml
+  lifecycle: lifecycle/yardi-canada-lifecycle.yml
+  data_model: data-model/yardi-canada-data-model.yml
+  mcp: mcp/yardi-canada-mcp.yml

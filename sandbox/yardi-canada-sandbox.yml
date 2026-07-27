@@ -1,0 +1,49 @@
+generated: '2026-07-26'
+method: searched
+source: https://www.yardi.com/news/press-releases/yardi-announces-new-rentcafe-api-program/
+public: false
+summary: >-
+  A vendor sandbox exists and is not reachable. Yardi's own RentCafe APIv2
+  announcement lists "a dedicated vendor sandbox for testing" as a program feature,
+  which makes the sandbox a real, first-party artifact — but it is a benefit of the
+  partner program, not a developer resource: there is no signup, no console, no test
+  credentials, no test property, no magic identifiers and no published test values of
+  any kind. Nothing is recorded below that Yardi did not publish, and no pointer is
+  wired for it, because a sandbox a developer cannot reach is not a developer sandbox.
+sandboxes:
+  - name: RentCafe API vendor sandbox
+    programme: RentCafe API program (APIv2)
+    announced: '2023-10-30'
+    access: partner-gated
+    prerequisites:
+      - Acceptance into the RentCafe API program (applicant must already be working with clients who use RentCafe).
+      - Execution of the RentCafe API Access Agreement with Yardi Systems.
+    url: null
+    credentials: not published
+    source: https://www.yardi.com/news/press-releases/yardi-announces-new-rentcafe-api-program/
+    quote: 'The program adds "a dedicated vendor sandbox for testing".'
+  - name: Voyager Standard Interface pilot
+    programme: Standard Interface Partnership Program (SIPP)
+    access: partner-gated
+    detail: >-
+      Not a sandbox in the API sense. The published five-step partner path is apply,
+      execute a Data Exchange Agreement per interface type, develop, beta-test with a
+      pilot client, then release for general availability — testing happens against a
+      real pilot client's tenancy, not against a shared test environment.
+    source: https://www.yardi.com/company/become-an-interface-partner/
+test_values:
+  test_cards: none published
+  test_accounts: none published
+  magic_identifiers: none published
+  test_clock: none published
+  fixtures: none published
+key_separation:
+  test_vs_live_prefixes: not published
+  note: No key format of any kind is published; the only documented credential is an opaque access token issued under contract.
+public_alternatives:
+  - name: Yardi Systems Status API
+    url: https://status.yardi.com/api/v2
+    note: >-
+      The one Yardi surface anyone can call today without a contract. Read-only, no
+      credential, safe to poll — useful as a connectivity and parsing target while the
+      real interfaces stay behind the gate.

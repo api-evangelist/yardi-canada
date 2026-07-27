@@ -1,0 +1,25 @@
+generated: '2026-07-26'
+method: generated
+source: openapi/yardi-canada-status-openapi.yml + mcp/yardi-canada-mcp.yml
+note: >-
+  Three skills, matching the three things an agent can actually do with Yardi today.
+  Two are grounded in verified operationIds from the derived status OpenAPI; the third
+  is grounded in the Virtuoso MCP server's published RFC 8414/9728 metadata. No skill
+  is written for the Voyager Standard Interfaces or the RentCafe API, because there is
+  no published contract to ground one in.
+skills:
+  - file: yardi-canada-check-canada-service-health.md
+    name: Check Yardi Canada service health
+    api: openapi/yardi-canada-status-openapi.yml
+    operations: [getStatus, listComponents, listUnresolvedIncidents]
+    auth: none
+  - file: yardi-canada-watch-canada-maintenance.md
+    name: Watch Yardi Canada maintenance windows
+    api: openapi/yardi-canada-status-openapi.yml
+    operations: [listUpcomingScheduledMaintenances, listActiveScheduledMaintenances, listScheduledMaintenances]
+    auth: none
+  - file: yardi-canada-connect-virtuoso-mcp.md
+    name: Connect to the Yardi Virtuoso MCP server
+    api: mcp/yardi-canada-mcp.yml
+    operations: []
+    auth: oauth2-authorization-code-pkce

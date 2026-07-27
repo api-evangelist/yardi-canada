@@ -1,0 +1,73 @@
+generated: '2026-07-26'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.yardibreeze.ca
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 22 15:20:24 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: www.yardi.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  6 02:36:40 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: resources.yardi.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 13 18:47:30 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: status.yardi.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 19 12:22:38 2026 GMT
+  hsts: true
+  hsts_max_age: 259200
+  note: >-
+    Public status API host. HSTS max-age is 259200 (3 days) — two orders of magnitude
+    shorter than the 31536000 the Yardi web properties set, and below the 31536000
+    required for preload.
+- host: mcp.virtuoso.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 23 04:41:14 2026 GMT
+  hsts: false
+  note: >-
+    Yardi Virtuoso MCP server. No Strict-Transport-Security header was observed; the
+    HEAD probe was answered with a Cloudflare 403, so absence is recorded as observed
+    on that response rather than as a confirmed policy.
+- host: virtuoso.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 22 19:48:45 2026 GMT
+  hsts: false
+domains:
+- domain: yardibreeze.ca
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: false
+- domain: yardi.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine
+- domain: virtuoso.ai
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
+  note: >-
+    The virtuoso.ai SPF record includes asp-spf1.yardi.com, asp-spf2.yardi.com and
+    other-spf1.yardi.com, corroborating that virtuoso.ai is operated by Yardi. DMARC
+    is p=none (monitor only) with Proofpoint aggregate/forensic reporting.
+findings:
+- No domain in the estate is DNSSEC-signed.
+- No domain publishes a CAA record, so any CA may issue for yardi.com, yardibreeze.ca or virtuoso.ai.
+- yardibreeze.ca — the live Canadian property — publishes no DMARC record at all; yardi.com is at quarantine and virtuoso.ai at none. No domain reaches p=reject.
+- TLS 1.3 everywhere, and HSTS with a one-year max-age on the three web hosts; the MCP host and the marketplace host set no HSTS.

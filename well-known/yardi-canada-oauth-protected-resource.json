@@ -1,0 +1,1 @@
+{"resource":"https://mcp.virtuoso.ai","authorization_servers":["https://mcp.virtuoso.ai"],"scopes_supported":["openid","profile","email","offline_access"],"bearer_methods_supported":["header"],"resource_documentation":"https://modelcontextprotocol.io/docs/tutorials/security/authorization"}

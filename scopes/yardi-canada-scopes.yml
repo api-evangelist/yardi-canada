@@ -1,0 +1,49 @@
+generated: '2026-07-26'
+method: searched
+source: https://mcp.virtuoso.ai/.well-known/oauth-authorization-server
+sources:
+  - https://mcp.virtuoso.ai/.well-known/oauth-authorization-server
+  - https://mcp.virtuoso.ai/.well-known/oauth-protected-resource
+summary: >-
+  Yardi's only published OAuth scope vocabulary belongs to the Yardi Virtuoso MCP
+  server, and it is deliberately thin: four standard OIDC/OAuth scopes, no
+  product-domain scopes. That is the whole authorization story an agent can read
+  anonymously. Data authorization is not expressed as scopes at all — Yardi states
+  the connector "authenticates through Yardi, so data access automatically follows
+  existing user permissions", which means the Voyager/Breeze/RentCafe role of the
+  signed-in Yardi user is the real permission boundary. No scope reference page is
+  published; the metadata document is the reference.
+schemes:
+  - name: virtuoso-mcp-oauth
+    type: oauth2
+    source: https://mcp.virtuoso.ai/.well-known/oauth-authorization-server
+    issuer: https://mcp.virtuoso.ai
+    flows:
+      - flow: authorizationCode
+        authorizationUrl: https://mcp.virtuoso.ai/oauth/authorize
+        tokenUrl: https://mcp.virtuoso.ai/oauth/token
+        registrationUrl: https://mcp.virtuoso.ai/oauth/register
+        pkce: [S256]
+        grant_types: [authorization_code, refresh_token]
+        token_endpoint_auth_methods: [client_secret_post, client_secret_basic, none]
+scopes:
+  - scope: openid
+    description: Standard OpenID Connect scope; requests an ID token for the signed-in Yardi user.
+    flows: [authorizationCode]
+    sources: [https://mcp.virtuoso.ai/.well-known/oauth-authorization-server]
+  - scope: profile
+    description: Standard OIDC scope for basic profile claims about the signed-in Yardi user.
+    flows: [authorizationCode]
+    sources: [https://mcp.virtuoso.ai/.well-known/oauth-authorization-server]
+  - scope: email
+    description: Standard OIDC scope for the signed-in user's email claim.
+    flows: [authorizationCode]
+    sources: [https://mcp.virtuoso.ai/.well-known/oauth-authorization-server]
+  - scope: offline_access
+    description: Requests a refresh token so the agent can keep operating without re-consent.
+    flows: [authorizationCode]
+    sources: [https://mcp.virtuoso.ai/.well-known/oauth-authorization-server]
+notes:
+  - No product-domain scopes (property, lease, ledger, work-order) are published; the connector is declared Read & Write with no scope-level separation of the two.
+  - No OAuth surface of any kind exists on www.yardi.com or www.yardibreeze.ca — /.well-known/openid-configuration and /.well-known/oauth-authorization-server both 404 there.
+  - The Voyager Standard Interfaces and the RentCafe API are not OAuth; they use a contract-issued access token (see authentication/).

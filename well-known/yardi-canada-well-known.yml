@@ -1,0 +1,108 @@
+generated: '2026-07-26'
+method: searched
+source: live probes of every Yardi/Yardi Canada host on 2026-07-26
+summary: >-
+  Two real discovery documents exist across the whole Yardi estate, and both sit on
+  the Yardi Virtuoso MCP host rather than on any Yardi web property. mcp.virtuoso.ai
+  serves RFC 9728 protected-resource metadata and RFC 8414 authorization-server
+  metadata anonymously — that is the machine-readable authorization contract behind
+  the Yardi Virtuoso Connector for Claude. Every /.well-known/ path on www.yardi.com,
+  www.yardibreeze.ca, resources.yardi.com and virtuoso.ai returns 404 or an HTML
+  application shell. Recording the misses is deliberate: it is the evidence that the
+  agent-facing surface, not the web surface, is where Yardi publishes discovery.
+hosts:
+  - host: https://mcp.virtuoso.ai
+    role: Yardi Virtuoso MCP server (official Claude connector)
+    documents:
+      - path: /.well-known/oauth-protected-resource
+        spec: RFC 9728
+        status: 200
+        file: yardi-canada-oauth-protected-resource.json
+      - path: /.well-known/oauth-authorization-server
+        spec: RFC 8414
+        status: 200
+        file: yardi-canada-oauth-authorization-server.json
+      - path: /.well-known/openid-configuration
+        status: 403
+        note: Cloudflare bot layer returned 403 to the automated client; not confirmed absent.
+      - path: /.well-known/security.txt
+        status: 403
+        note: Cloudflare bot layer returned 403 to the automated client; not confirmed absent.
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403
+      - path: /llms.txt
+        status: 403
+  - host: https://www.yardi.com
+    role: Yardi Systems corporate + product site (serves the Canadian content)
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+        note: >-
+          Notable: https://www.yardi.com/robots.txt (200, updated 2026-07) carries an
+          AI-crawler policy block that repeatedly writes `Allow: /llms.txt` for
+          cohere-ai, Diffbot and Bytespider while disallowing the rest of the site.
+          The policy references a file Yardi does not serve — the llms.txt itself
+          404s. Aspirational AI policy without the artifact.
+      - path: /robots.txt
+        status: 200
+      - path: /sitemap_index.xml
+        status: 200
+  - host: https://www.yardibreeze.ca
+    role: Yardi Canada Ltd. live Canadian product site (Breeze / Breeze Premier)
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /llms.txt
+        status: 404
+      - path: /robots.txt
+        status: 200
+      - path: /sitemap_index.xml
+        status: 200
+      - path: /feed/
+        status: 200
+        note: WordPress RSS feed for the Canadian Breeze blog.
+  - host: https://virtuoso.ai
+    role: Virtuoso Marketplace web application (Yardi Systems, LLC)
+    documents:
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        note: >-
+          NOT a discovery document — the single-page application returns its HTML
+          shell (title "Virtuoso Marketplace") for every path. Recorded as a miss,
+          not a hit. The real metadata is on mcp.virtuoso.ai.
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        note: Same SPA shell; not JSON.
+      - path: /.well-known/openid-configuration
+        status: 200
+        note: Same SPA shell; not JSON.
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://status.yardi.com
+    role: Yardi Systems status page and status API
+    documents:
+      - path: /api
+        status: 200
+        note: Published endpoint list for the public status API (see openapi/).
+      - path: /api/v2/status.json
+        status: 200
+      - path: /history.rss
+        status: 404

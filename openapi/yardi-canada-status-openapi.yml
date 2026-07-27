@@ -1,0 +1,350 @@
+openapi: 3.1.0
+info:
+  title: Yardi Systems Status API
+  version: v2
+  summary: Public, unauthenticated status API for the Yardi Systems status page, including the Canadian regional components Yardi Canada Ltd. clients run on.
+  description: >-
+    The only publicly callable, machine-readable API surface Yardi serves anonymously.
+    It is the Atlassian Statuspage v2 REST API hosted on Yardi's own status host
+    (page id `3cqj0pmpypxd`, page name "Yardi Systems"), and Yardi publishes the
+    endpoint list itself at https://status.yardi.com/api. The page carries 134
+    components in 16 groups — Voyager7s, Voyager8, Breeze, RentCafe, RentCafe ANZ,
+    RentCafe UK, RentCafe Middle East, CommercialCafe, Elevate, Investor Portal,
+    Kube, Payment Processing, Relief Suite, Resident Screening, VendorCafe and Yardi
+    EHR Interfaces — several of which expose an explicit `Canada` component
+    (Voyager7s/Canada, Voyager8/Canada, Breeze/Canada, Elevate/Canada, Investor
+    Portal/Canada, Resident Screening/Canada, Yardi EHR Interfaces/Canada). That is
+    the machine-readable seam a Yardi Canada integrator can actually poll.
+
+    This document was DERIVED, not published by Yardi: every path, method and
+    response shape below was confirmed against Yardi's own published endpoint list
+    and against live 200 responses fetched on 2026-07-26. No endpoint, parameter or
+    field is asserted here that was not observed. Yardi publishes no OpenAPI of its
+    own for this or any other interface.
+  contact:
+    name: Yardi technical support
+    url: https://www.yardi.com/company/technical-support/
+  x-evidence:
+    documented_endpoint_list: https://status.yardi.com/api
+    probed: '2026-07-26'
+    probe_results:
+      - {path: /api/v2/summary.json, status: 200, bytes: 43811}
+      - {path: /api/v2/status.json, status: 200, bytes: 218}
+      - {path: /api/v2/components.json, status: 200, bytes: 43698}
+      - {path: /api/v2/incidents.json, status: 200, bytes: 184611}
+      - {path: /api/v2/incidents/unresolved.json, status: 200, bytes: 163}
+      - {path: /api/v2/scheduled-maintenances.json, status: 200, bytes: 275222}
+      - {path: /api/v2/scheduled-maintenances/upcoming.json, status: 200, bytes: 176}
+      - {path: /api/v2/scheduled-maintenances/active.json, status: 200, bytes: 176}
+    platform: Atlassian Statuspage v2 public API, hosted on a Yardi host
+servers:
+  - url: https://status.yardi.com/api/v2
+    description: Yardi Systems status page, public and unauthenticated
+tags:
+  - name: Status
+    description: Rolled-up page status
+  - name: Components
+    description: Per-product and per-region service components
+  - name: Incidents
+    description: Unplanned service incidents and their updates
+  - name: Maintenance
+    description: Scheduled maintenance windows
+paths:
+  /summary.json:
+    get:
+      operationId: getStatusSummary
+      tags: [Status]
+      summary: Get the full status page summary
+      description: >-
+        Returns the page identity, the rolled-up status indicator, every component
+        (including group components and their children), all unresolved incidents
+        and all upcoming or in-progress scheduled maintenances in one document.
+      security: []
+      responses:
+        '200':
+          description: Status page summary
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [page, components, incidents, scheduled_maintenances, status]
+                properties:
+                  page: {$ref: '#/components/schemas/Page'}
+                  status: {$ref: '#/components/schemas/StatusIndicator'}
+                  components:
+                    type: array
+                    items: {$ref: '#/components/schemas/Component'}
+                  incidents:
+                    type: array
+                    items: {$ref: '#/components/schemas/Incident'}
+                  scheduled_maintenances:
+                    type: array
+                    items: {$ref: '#/components/schemas/ScheduledMaintenance'}
+              example:
+                page: {id: 3cqj0pmpypxd, name: Yardi Systems, url: 'https://status.yardi.com', time_zone: Etc/UTC, updated_at: '2026-07-27T01:34:30.213Z'}
+                status: {indicator: none, description: All Systems Operational}
+                components: []
+                incidents: []
+                scheduled_maintenances: []
+  /status.json:
+    get:
+      operationId: getStatus
+      tags: [Status]
+      summary: Get the rolled-up page status
+      description: Returns only the page identity and the single rolled-up status indicator for all Yardi systems.
+      security: []
+      responses:
+        '200':
+          description: Rolled-up status
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [page, status]
+                properties:
+                  page: {$ref: '#/components/schemas/Page'}
+                  status: {$ref: '#/components/schemas/StatusIndicator'}
+              example:
+                page: {id: 3cqj0pmpypxd, name: Yardi Systems, url: 'https://status.yardi.com', time_zone: Etc/UTC, updated_at: '2026-07-27T01:34:30.213Z'}
+                status: {indicator: none, description: All Systems Operational}
+  /components.json:
+    get:
+      operationId: listComponents
+      tags: [Components]
+      summary: List every status component
+      description: >-
+        Returns all 134 components on the Yardi Systems status page, including the
+        16 group components and their children. Canadian components appear as a
+        component named `Canada` whose `group_id` resolves to the Voyager7s,
+        Voyager8, Breeze, Elevate, Investor Portal, Resident Screening or Yardi EHR
+        Interfaces group.
+      security: []
+      responses:
+        '200':
+          description: Component list
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [page, components]
+                properties:
+                  page: {$ref: '#/components/schemas/Page'}
+                  components:
+                    type: array
+                    items: {$ref: '#/components/schemas/Component'}
+  /incidents.json:
+    get:
+      operationId: listIncidents
+      tags: [Incidents]
+      summary: List recent incidents
+      description: >-
+        Returns the most recent incidents (50 in the observed response), newest
+        first, each with its full update history and affected components. Canadian
+        incidents are named explicitly, for example "Issue impacting Yardi Voyager
+        users in the Canada region".
+      security: []
+      responses:
+        '200':
+          description: Incident list
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [page, incidents]
+                properties:
+                  page: {$ref: '#/components/schemas/Page'}
+                  incidents:
+                    type: array
+                    items: {$ref: '#/components/schemas/Incident'}
+  /incidents/unresolved.json:
+    get:
+      operationId: listUnresolvedIncidents
+      tags: [Incidents]
+      summary: List unresolved incidents
+      description: Returns only incidents that are not yet resolved. An empty array is the normal, healthy result.
+      security: []
+      responses:
+        '200':
+          description: Unresolved incident list
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [page, incidents]
+                properties:
+                  page: {$ref: '#/components/schemas/Page'}
+                  incidents:
+                    type: array
+                    items: {$ref: '#/components/schemas/Incident'}
+  /scheduled-maintenances.json:
+    get:
+      operationId: listScheduledMaintenances
+      tags: [Maintenance]
+      summary: List recent and upcoming scheduled maintenances
+      description: >-
+        Returns the most recent scheduled maintenance windows (50 in the observed
+        response), newest first. Regional windows are named explicitly, for example
+        "Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT".
+      security: []
+      responses:
+        '200':
+          description: Scheduled maintenance list
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [page, scheduled_maintenances]
+                properties:
+                  page: {$ref: '#/components/schemas/Page'}
+                  scheduled_maintenances:
+                    type: array
+                    items: {$ref: '#/components/schemas/ScheduledMaintenance'}
+  /scheduled-maintenances/upcoming.json:
+    get:
+      operationId: listUpcomingScheduledMaintenances
+      tags: [Maintenance]
+      summary: List upcoming scheduled maintenances
+      description: Returns only maintenance windows scheduled in the future.
+      security: []
+      responses:
+        '200':
+          description: Upcoming scheduled maintenance list
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [page, scheduled_maintenances]
+                properties:
+                  page: {$ref: '#/components/schemas/Page'}
+                  scheduled_maintenances:
+                    type: array
+                    items: {$ref: '#/components/schemas/ScheduledMaintenance'}
+  /scheduled-maintenances/active.json:
+    get:
+      operationId: listActiveScheduledMaintenances
+      tags: [Maintenance]
+      summary: List in-progress scheduled maintenances
+      description: Returns only maintenance windows currently in progress.
+      security: []
+      responses:
+        '200':
+          description: Active scheduled maintenance list
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [page, scheduled_maintenances]
+                properties:
+                  page: {$ref: '#/components/schemas/Page'}
+                  scheduled_maintenances:
+                    type: array
+                    items: {$ref: '#/components/schemas/ScheduledMaintenance'}
+components:
+  securitySchemes: {}
+  schemas:
+    Page:
+      type: object
+      description: Identity of the status page itself.
+      required: [id, name, url, updated_at]
+      properties:
+        id: {type: string, examples: ['3cqj0pmpypxd']}
+        name: {type: string, examples: ['Yardi Systems']}
+        url: {type: string, format: uri, examples: ['https://status.yardi.com']}
+        time_zone: {type: string, examples: ['Etc/UTC']}
+        updated_at: {type: string, format: date-time}
+    StatusIndicator:
+      type: object
+      description: Rolled-up status for the whole page.
+      required: [indicator, description]
+      properties:
+        indicator:
+          type: string
+          description: Observed value `none`; Yardi's own published example additionally shows `major`.
+          examples: [none]
+        description: {type: string, examples: ['All Systems Operational']}
+    Component:
+      type: object
+      description: >-
+        One product, region or sub-service tracked on the page. A component with
+        `group: true` is a container whose children are listed in `components`.
+      required: [id, name, status, page_id, group]
+      properties:
+        id: {type: string, examples: ['m5cxlbn41qsg']}
+        name: {type: string, examples: ['Canada']}
+        status: {type: string, examples: [operational]}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
+        position: {type: integer}
+        description: {type: [string, 'null']}
+        showcase: {type: boolean}
+        start_date: {type: [string, 'null'], format: date}
+        group_id: {type: [string, 'null'], description: Id of the parent group component.}
+        page_id: {type: string}
+        group: {type: boolean}
+        only_show_if_degraded: {type: boolean}
+        components:
+          type: array
+          description: Present on group components; ids of the child components.
+          items: {type: string}
+    Incident:
+      type: object
+      required: [id, name, status, impact, page_id]
+      properties:
+        id: {type: string, examples: ['5pshx4ms4grv']}
+        name: {type: string, examples: ['Issue impacting Yardi Voyager users in the Canada region']}
+        status: {type: string, examples: [resolved]}
+        impact: {type: string, examples: [major]}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
+        started_at: {type: string, format: date-time}
+        monitoring_at: {type: [string, 'null'], format: date-time}
+        resolved_at: {type: [string, 'null'], format: date-time}
+        shortlink: {type: string, format: uri}
+        page_id: {type: string}
+        reminder_intervals: {type: [string, 'null']}
+        components:
+          type: array
+          items: {$ref: '#/components/schemas/Component'}
+        incident_updates:
+          type: array
+          items: {$ref: '#/components/schemas/IncidentUpdate'}
+    IncidentUpdate:
+      type: object
+      required: [id, status, body, incident_id]
+      properties:
+        id: {type: string}
+        status: {type: string}
+        body: {type: string}
+        incident_id: {type: string}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
+        display_at: {type: string, format: date-time}
+        affected_components:
+          type: [array, 'null']
+          items: {type: object}
+        deliver_notifications: {type: boolean}
+        custom_tweet: {type: [string, 'null']}
+        tweet_id: {type: [string, 'null']}
+    ScheduledMaintenance:
+      type: object
+      required: [id, name, status, impact, page_id]
+      properties:
+        id: {type: string}
+        name: {type: string, examples: ['Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT']}
+        status: {type: string, examples: [completed]}
+        impact: {type: string}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
+        started_at: {type: string, format: date-time}
+        monitoring_at: {type: [string, 'null'], format: date-time}
+        resolved_at: {type: [string, 'null'], format: date-time}
+        scheduled_for: {type: string, format: date-time}
+        scheduled_until: {type: string, format: date-time}
+        shortlink: {type: string, format: uri}
+        page_id: {type: string}
+        components:
+          type: array
+          items: {$ref: '#/components/schemas/Component'}
+        incident_updates:
+          type: array
+          items: {$ref: '#/components/schemas/IncidentUpdate'}

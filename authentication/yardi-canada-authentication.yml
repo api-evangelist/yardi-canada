@@ -1,0 +1,88 @@
+generated: '2026-07-26'
+method: searched
+source: https://mcp.virtuoso.ai/.well-known/oauth-authorization-server
+docs:
+  - https://mcp.virtuoso.ai/.well-known/oauth-authorization-server
+  - https://mcp.virtuoso.ai/.well-known/oauth-protected-resource
+  - https://resources.yardi.com/legal/rc-api-tou/
+  - https://status.yardi.com/api
+summary:
+  types: [oauth2, opaque-token, none]
+  api_key_in: []
+  oauth2_flows: [authorizationCode]
+  headline: >-
+    Three different authentication regimes coexist and only one of them is documented
+    machine-readably. The Yardi Virtuoso MCP server publishes a full OAuth 2.1
+    authorization-code + PKCE contract anonymously, including dynamic client
+    registration. The Voyager Standard Interfaces and the RentCafe API are governed by
+    signed agreements and an opaque, contract-issued access token with no published
+    header name, format, issuance endpoint or refresh flow. The public status API takes
+    no credential at all.
+schemes:
+  - name: virtuoso-mcp-oauth
+    type: oauth2
+    applies_to: Yardi Virtuoso Connector (MCP), https://mcp.virtuoso.ai
+    documented: true
+    machine_readable: true
+    flows:
+      authorizationCode:
+        authorizationUrl: https://mcp.virtuoso.ai/oauth/authorize
+        tokenUrl: https://mcp.virtuoso.ai/oauth/token
+        registrationUrl: https://mcp.virtuoso.ai/oauth/register
+        scopes:
+          openid: OpenID Connect identity
+          profile: Basic profile claims
+          email: Email claim
+          offline_access: Refresh token issuance
+    pkce: required-capable
+    code_challenge_methods_supported: [S256]
+    token_endpoint_auth_methods_supported: [client_secret_post, client_secret_basic, none]
+    bearer_methods_supported: [header]
+    dynamic_client_registration: true
+    authorization_boundary: >-
+      Scopes carry identity only. Yardi states data access "automatically follows
+      existing user permissions", so the effective authorization is the caller's Yardi
+      role in the tenancy — including a Yardi Canada Ltd. client's Canadian tenancy.
+    sources:
+      - well-known/yardi-canada-oauth-protected-resource.json
+      - well-known/yardi-canada-oauth-authorization-server.json
+  - name: rentcafe-access-token
+    type: opaque-token
+    applies_to: RentCafe API (partner-gated)
+    documented: partially
+    machine_readable: false
+    detail: >-
+      The published RentCafe API Terms of Use is the only first-party statement of the
+      credential model. It describes a per-company access token issued under the
+      RentCafe API Access Agreement and its revocation — "The Company's access token
+      will terminate and Company will no longer have access to the Data Exchange
+      Program". No token format, header name, issuance endpoint, expiry, refresh flow,
+      scope vocabulary or rate-limit policy is published anywhere public.
+    issuance: Contract — RentCafe API Access Agreement with Yardi Systems, Inc.
+    source: https://resources.yardi.com/legal/rc-api-tou/
+  - name: voyager-interface-credentials
+    type: unpublished
+    applies_to: Yardi Voyager Standard Interfaces (partner-gated)
+    documented: false
+    detail: >-
+      No credential model is published for the twelve Voyager Standard Interface
+      families. Access is granted only after acceptance into the Interface Partnership
+      Program and execution of a Data Exchange Agreement per interface type.
+    source: https://www.yardi.com/company/become-an-interface-partner/
+  - name: status-api-anonymous
+    type: none
+    applies_to: Yardi Systems Status API, https://status.yardi.com/api/v2
+    documented: true
+    detail: Public and unauthenticated; every endpoint returns 200 to an anonymous GET.
+    source: https://status.yardi.com/api
+federated_identity:
+  openid_connect_discovery: not published on any Yardi web host
+  probes:
+    - {url: 'https://www.yardi.com/.well-known/openid-configuration', status: 404}
+    - {url: 'https://www.yardibreeze.ca/.well-known/openid-configuration', status: 404}
+    - {url: 'https://virtuoso.ai/.well-known/openid-configuration', status: 200, note: SPA HTML shell, not a discovery document}
+  product_sso: >-
+    Yardi's cloud-security page states the products offer "SSO integration", password
+    complexity/expiry controls and automated inactivity log-off, but publishes no
+    protocol metadata, no IdP endpoints and no SAML metadata URL.
+  source: https://www.yardi.com/company/cloud-security/

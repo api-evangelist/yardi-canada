@@ -1,0 +1,110 @@
+generated: '2026-07-26'
+method: searched
+source: https://www.yardi.com/company/cloud-security/
+sources:
+  - https://www.yardi.com/company/cloud-security/
+  - https://mcp.virtuoso.ai/.well-known/oauth-authorization-server
+  - https://mcp.virtuoso.ai/.well-known/oauth-protected-resource
+  - https://www.yardi.com/services/interfaces/standard-interface-options/
+  - https://www.reso.org/certificates/
+summary: >-
+  Yardi's conformance profile splits cleanly. On the security/compliance side it is
+  substantive and published: PCI, SSAE 18 with annual SOC 2 and biannual SOC 1
+  reports, Sarbanes-Oxley, HIPAA for senior-living health data, CSA STAR Level 2, and
+  FIPS 140-2 key management. On the API-standards side it is thin and mostly
+  historical: MITS and OSCRE lineage claimed in prose for the Voyager interfaces, no
+  RESO certification anywhere, no OData, no RFC 9457. The one genuinely modern
+  standards conformance is on the agent surface — the Virtuoso MCP server implements
+  the MCP authorization profile with RFC 8414, RFC 9728, OAuth 2.1 authorization code,
+  PKCE (RFC 7636) and dynamic client registration (RFC 7591).
+standards:
+  - id: mcp-authorization
+    name: Model Context Protocol authorization
+    conforms: true
+    evidence: >-
+      mcp.virtuoso.ai serves both /.well-known/oauth-protected-resource and
+      /.well-known/oauth-authorization-server, each citing
+      https://modelcontextprotocol.io/docs/tutorials/security/authorization as its
+      service/resource documentation.
+  - id: rfc8414-oauth-authorization-server-metadata
+    conforms: true
+    evidence: https://mcp.virtuoso.ai/.well-known/oauth-authorization-server returns valid RFC 8414 metadata (200, application/json).
+  - id: rfc9728-oauth-protected-resource-metadata
+    conforms: true
+    evidence: https://mcp.virtuoso.ai/.well-known/oauth-protected-resource returns valid RFC 9728 metadata (200, application/json).
+  - id: oauth2
+    conforms: true
+    evidence: authorization_code + refresh_token grants published in the Virtuoso MCP authorization-server metadata.
+  - id: rfc7636-pkce
+    conforms: true
+    evidence: code_challenge_methods_supported = ["S256"].
+  - id: rfc7591-dynamic-client-registration
+    conforms: true
+    evidence: registration_endpoint = https://mcp.virtuoso.ai/oauth/register.
+  - id: oidc
+    conforms: partial
+    evidence: >-
+      openid/profile/email scopes are supported by the MCP authorization server, but no
+      /.well-known/openid-configuration discovery document is served on any Yardi host
+      (404 on www.yardi.com and www.yardibreeze.ca).
+  - id: pci-dss
+    conforms: true
+    evidence: '"Feel confident your Cloud solution complies with PCI, SSAE 18 and Sarbanes-Oxley regulations." (Yardi Cloud Security)'
+  - id: ssae18-soc1
+    conforms: true
+    evidence: '"biannual SOC1 reports are provided to ensure compliance with SSAE18 and other accounting standards."'
+  - id: ssae18-soc2
+    conforms: true
+    evidence: '"Annual SOC2 ... reports are provided to ensure compliance with SSAE18 and other accounting standards."'
+  - id: sarbanes-oxley
+    conforms: true
+    evidence: '"On-premises security personnel, continuous video surveillance and biometric screening at all entrances fulfill Sarbanes-Oxley and HIPAA confidentiality requirements."'
+  - id: hipaa
+    conforms: true
+    evidence: '"Senior Living providers can rest assured with resident health data adhering to the latest HIPAA rules."'
+    scope: Senior Living EHR/eMAR resident health data.
+  - id: csa-star-level-2
+    conforms: true
+    evidence: '"The Yardi Coud is CSA Star Level 2 certified by the Cloud Security Alliance." (verbatim, including the typo on Yardi''s page)'
+  - id: fips-140-2
+    conforms: true
+    evidence: '"Encryptions keys are managed in a FIPS140-2 compliant system." Optional AES-256 database encryption available on request.'
+  - id: tls-encryption-in-transit
+    conforms: true
+    evidence: '"Ensure data in transit is secure with automatic TLS encryption and active session management." Confirmed independently: TLSv1.3 with HSTS max-age 31536000 on www.yardi.com, www.yardibreeze.ca and resources.yardi.com (see security/yardi-canada-domain-security.yml).'
+  - id: mits
+    name: MITS (Multifamily Information and Transactions Standards)
+    conforms: claimed
+    evidence: >-
+      Yardi describes the Collections, ILS/Guest Card, Receivables, Renters Insurance
+      and Screening interfaces as MITS-based or MITS-compliant on its standard
+      interface options page. No schema, WSDL or version is published, so the claim
+      cannot be verified against an artifact.
+  - id: oscre
+    conforms: claimed
+    evidence: >-
+      Yardi describes the Commercial interface as built on the OSCRE standard. Same
+      caveat — prose only, no published contract.
+  - id: reso-data-dictionary
+    conforms: false
+    evidence: >-
+      The full RESO certification directory (https://www.reso.org/certificates/,
+      416,233 bytes, fetched 2026-07-26) contains zero occurrences of Yardi, Point2 or
+      RentCafe. Expected: Canadian residential listings move through CREA's DDF and
+      REALTOR.ca, not through RESO-certified MLS endpoints, and Yardi is a
+      systems-of-record vendor rather than a listing syndicator.
+  - id: reso-web-api
+    conforms: false
+    evidence: Same directory sweep; no Yardi entry of any certification type or version.
+  - id: odata
+    conforms: false
+    evidence: 'https://www.yardi.com/$metadata and https://www.yardibreeze.ca/$metadata both returned 404. No OData service document on any resolving Yardi host.'
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: No error contract is published for any Yardi interface; the public status API returns plain Statuspage JSON with no problem+json media type.
+  - id: openapi
+    conforms: false
+    evidence: Yardi publishes no OpenAPI. The spec in openapi/ was derived by API Evangelist from Yardi's own published status-API endpoint list plus verified live responses.
+  - id: asyncapi
+    conforms: false
+    evidence: No event, streaming or webhook surface is published for any Yardi interface.

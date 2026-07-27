@@ -1,0 +1,62 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Yardi Systems Status API
+  version: 1.0.0
+extends: openapi/yardi-canada-status-openapi.yml
+x-apievangelist:
+  generated: '2026-07-26'
+  method: generated
+  source: openapi/yardi-canada-status-openapi.yml
+  note: >-
+    Captures the API Evangelist annotations layered over the derived status spec —
+    provenance, the Canadian regional reading, and the agent-access classification —
+    without mutating the spec itself.
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provenance: derived-from-published-endpoint-list-and-live-responses
+      x-apievangelist-harvested: '2026-07-26'
+      x-apievangelist-provider: yardi-canada
+      x-apievangelist-note: >-
+        Yardi publishes no OpenAPI. This document was reconstructed from Yardi's own
+        published endpoint list at https://status.yardi.com/api plus verified 200
+        responses; it is the only anonymously callable Yardi API surface.
+  - target: $.info
+    update:
+      x-apievangelist-canada-relevance: >-
+        Seven of the sixteen product groups on this page carry an explicit Canada
+        component, making this the only public, machine-readable signal of Yardi
+        Canada's production service health.
+  - target: $.paths['/summary.json'].get
+    update:
+      x-agentic-access:
+        action-class: connected
+        consequence: read
+        audit: optional
+  - target: $.paths['/status.json'].get
+    update:
+      x-agentic-access:
+        action-class: connected
+        consequence: read
+        audit: optional
+  - target: $.paths['/components.json'].get
+    update:
+      x-apievangelist-canada-filter: 'components[?(@.name == "Canada")] joined to the parent group by group_id'
+      x-agentic-access:
+        action-class: connected
+        consequence: read
+        audit: optional
+  - target: $.paths['/incidents.json'].get
+    update:
+      x-apievangelist-window: 50 most recent incidents; no pagination parameter exists
+      x-agentic-access:
+        action-class: connected
+        consequence: read
+        audit: optional
+  - target: $.paths['/scheduled-maintenances.json'].get
+    update:
+      x-apievangelist-window: 50 most recent maintenance windows; no pagination parameter exists
+      x-agentic-access:
+        action-class: connected
+        consequence: read
+        audit: optional

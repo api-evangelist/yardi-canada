@@ -25,8 +25,16 @@ description: >-
   per-interface fee. RESO is absent entirely — Yardi appears nowhere in the RESO
   certification directory — which is the expected result for a Canadian property
   management vendor, because Canadian residential listings move through CREA's DDF
-  and REALTOR.ca rather than through RESO-certified MLS endpoints.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+  and REALTOR.ca rather than through RESO-certified MLS endpoints. Two public,
+  machine-readable surfaces do exist and neither of them is REST. Yardi ships a
+  first-party MCP server — the Yardi Virtuoso Connector, listed on the Anthropic
+  connector directory and served from mcp.virtuoso.ai — whose OAuth 2.1 authorization
+  contract (RFC 8414 and RFC 9728 metadata, PKCE, dynamic client registration) is
+  published anonymously even though its tool list is not. And status.yardi.com runs a
+  full Atlassian Statuspage with a public JSON API across 134 components in 16 product
+  groups, seven of which carry an explicit Canada component — the only anonymous,
+  machine-readable signal of Yardi Canada's production service health.
+image: https://www.yardi.com/wp-content/themes/cmw-standard-v2-theme/images/icons/apple-touch-icon-152x152.png
 tags:
 - Real Estate
 - Canada
@@ -40,6 +48,8 @@ tags:
 - Investment Management
 - Tenancy
 - Payments
+- MCP
+- AI
 created: '2026-07-26'
 modified: '2026-07-26'
 specificationVersion: '0.19'
@@ -107,7 +117,103 @@ apis:
     url: https://www.yardi.com/company/become-an-interface-partner/
   - type: Documentation
     url: https://www.yardi.com/products/rentcafe/
+- aid: yardi-canada:yardi-virtuoso-connector-mcp
+  name: Yardi Virtuoso Connector (MCP)
+  description: >-
+    Yardi's first-party Model Context Protocol server, announced in early access on
+    2025-09-10 and described as available now in Virtuoso Enterprise on 2026-06-16.
+    Listed on the Anthropic connector directory as Read & Write in the Financial
+    services category, supported across Claude web, desktop, mobile, Claude Code and
+    the Claude API. Published capabilities are portfolio performance analysis across
+    properties and markets, financial data including Net Operating Income comparisons,
+    work order management and tracking, invoice review and approval workflows,
+    quarterly business review support, and budget forecasting. Authorization is real
+    and anonymously discoverable — RFC 9728 protected-resource metadata and RFC 8414
+    authorization-server metadata on mcp.virtuoso.ai publish an OAuth 2.1
+    authorization-code flow with PKCE S256, refresh tokens and dynamic client
+    registration, with the scopes openid, profile, email and offline_access. Those
+    scopes carry identity only: Yardi states data access follows the caller's existing
+    Yardi user permissions, so a Yardi Canada client's tenancy roles are the real
+    boundary. The tool list is not anonymously introspectable — every unauthenticated
+    JSON-RPC POST is answered with an HTML 403 by Cloudflare — and the connector's
+    technical documentation returns HTTP 401, so no tool names or input schemas are
+    asserted in this profile. Access requires a licensed, configured Virtuoso
+    Enterprise tenancy; there is no trial and no developer sandbox.
+  image: https://www.yardi.com/wp-content/themes/cmw-standard-v2-theme/images/icons/apple-touch-icon-152x152.png
+  humanURL: https://claude.com/connectors/yardi-virtuoso
+  baseURL: https://mcp.virtuoso.ai
+  tags:
+  - MCP
+  - AI
+  - Agents
+  - Property Management
+  - Investment Management
+  - Maintenance
+  - Accounting
+  properties:
+  - type: MCPServer
+    url: mcp/yardi-canada-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/yardi-canada-tool-crosswalk.yml
+  - type: WellKnown
+    url: well-known/yardi-canada-well-known.yml
+  - type: OAuthScopes
+    url: scopes/yardi-canada-scopes.yml
+  - type: Authentication
+    url: authentication/yardi-canada-authentication.yml
+  - type: Documentation
+    url: https://help.virtuoso.ai/en/articles/13679727-yardi-virtuoso-mcp-technical-documentation-guide
+  - type: About
+    url: https://www.yardi.com/news/press-releases/yardi-adds-virtuoso-connector-for-claude-to-its-ai-platform/
+- aid: yardi-canada:yardi-systems-status-api
+  name: Yardi Systems Status API
+  description: >-
+    The only Yardi API that can be called today without a contract. It is the
+    Atlassian Statuspage v2 REST API hosted on Yardi's own status host, with the
+    endpoint list published by Yardi at https://status.yardi.com/api: eight
+    unauthenticated GET endpoints covering the rolled-up page status, the full
+    component tree, incidents (all and unresolved) and scheduled maintenances (all,
+    upcoming and active). The page carries 134 components across 16 product groups —
+    Voyager7s, Voyager8, Breeze, RentCafe and its ANZ/UK/Middle East siblings,
+    CommercialCafe, Elevate, Investor Portal, Kube, Payment Processing, Relief Suite,
+    Resident Screening, VendorCafe and Yardi EHR Interfaces — and seven of those groups
+    expose an explicit Canada component, which makes this the only public,
+    machine-readable read on Yardi Canada's production service health. Canadian
+    incidents and maintenance windows are named outright, for example "Issue impacting
+    Yardi Voyager users in the Canada region" and "Maintenance - Canada Region -
+    Thursday April 23 - 11:00pm EDT". The OpenAPI in this repository was derived by
+    API Evangelist from Yardi's published endpoint list plus verified live 200
+    responses; Yardi publishes no OpenAPI of its own.
+  image: https://www.yardi.com/wp-content/themes/cmw-standard-v2-theme/images/icons/apple-touch-icon-152x152.png
+  humanURL: https://status.yardi.com/api
+  baseURL: https://status.yardi.com/api/v2
+  tags:
+  - Status
+  - Monitoring
+  - Incidents
+  - Maintenance
+  - Canada
+  - Property Management
+  properties:
+  - type: OpenAPI
+    url: openapi/yardi-canada-status-openapi.yml
+  - type: Overlay
+    url: overlays/yardi-canada-status-overlay.yaml
+  - type: DataModel
+    url: data-model/yardi-canada-data-model.yml
+  - type: Conventions
+    url: conventions/yardi-canada-conventions.yml
+  - type: AgenticAccess
+    url: agentic-access/yardi-canada-agentic-access.yml
+  - type: Documentation
+    url: https://status.yardi.com/api
+  - type: StatusPage
+    url: https://status.yardi.com/
 common:
+- type: AgenticAccess
+  url: agentic-access/yardi-canada-agentic-access.yml
+- type: DomainSecurity
+  url: security/yardi-canada-domain-security.yml
 - type: Website
   url: https://www.yardibreeze.ca/
 - type: Website
@@ -126,6 +232,58 @@ common:
   url: https://github.com/YardiSystems
 - type: LinkedIn
   url: https://www.linkedin.com/company/yardi
+- type: MCPServer
+  url: mcp/yardi-canada-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/yardi-canada-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Authentication
+  url: authentication/yardi-canada-authentication.yml
+- type: OAuthScopes
+  url: scopes/yardi-canada-scopes.yml
+- type: WellKnown
+  url: well-known/yardi-canada-well-known.yml
+- type: Conformance
+  url: conformance/yardi-canada-conformance.yml
+- type: Compliance
+  url: https://www.yardi.com/company/cloud-security/
+- type: TrustCenter
+  url: security/yardi-canada-trust-center.yml
+- type: Lifecycle
+  url: lifecycle/yardi-canada-lifecycle.yml
+- type: StatusPage
+  url: https://status.yardi.com/
+- type: ChangeLog
+  url: changelog/yardi-canada-changelog.yml
+- type: Conventions
+  url: conventions/yardi-canada-conventions.yml
+- type: DataModel
+  url: data-model/yardi-canada-data-model.yml
+- type: Packages
+  url: packages/yardi-canada-packages.yml
+- type: LLMsTxt
+  url: llms/yardi-canada-llms.txt
+- type: Overlay
+  url: overlays/yardi-canada-status-overlay.yaml
+- type: Support
+  url: https://www.yardi.com/company/technical-support/
+- type: Login
+  url: https://clientcentral.yardi.com/
+- type: PrivacyPolicy
+  url: https://resources.yardi.com/legal/privacy-statement/
+- type: Legal
+  url: https://www.yardi.com/company/legal/
+- type: Blog
+  url: https://www.yardibreeze.ca/blog/
+- type: BlogRSS
+  url: https://www.yardibreeze.ca/feed/
+- type: News
+  url: https://www.yardi.com/news/
+- type: Careers
+  url: https://www.yardi.com/careers/
+- type: ContactUs
+  url: https://www.yardi.com/company/contact-us/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

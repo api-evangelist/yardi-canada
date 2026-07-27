@@ -1,0 +1,77 @@
+generated: '2026-07-26'
+method: searched
+source: https://status.yardi.com/
+sources:
+  - https://status.yardi.com/
+  - https://status.yardi.com/api/v2/summary.json
+  - https://www.yardi.com/news/press-releases/yardi-announces-new-rentcafe-api-program/
+  - https://www.yardi.com/news/press-releases/yardi-adds-virtuoso-connector-for-claude-to-its-ai-platform/
+summary: >-
+  Yardi runs an operationally serious status page and publishes almost nothing about
+  API lifecycle. status.yardi.com is a full Atlassian Statuspage with 134 components
+  in 16 product groups, region-sliced so that Canada is a first-class component under
+  Voyager7s, Voyager8, Breeze, Elevate, Investor Portal, Resident Screening and Yardi
+  EHR Interfaces — a Yardi Canada client can watch their own region degrade in real
+  time, anonymously, through a JSON API. Against that, there is no published
+  versioning policy, no deprecation policy, no Sunset/Deprecation header commitment,
+  and no SLA document: uptime commitments live in the client contract, and interface
+  version transitions are announced by press release.
+status_page: https://status.yardi.com/
+status_page_platform: Atlassian Statuspage
+status_page_api: https://status.yardi.com/api
+status_page_detail:
+  page_id: 3cqj0pmpypxd
+  page_name: Yardi Systems
+  components: 134
+  component_groups: 16
+  groups: [Breeze, CommercialCafe, Elevate, Investor Portal, Kube, Payment Processing, Relief Suite, RentCafe, RentCafe ANZ, RentCafe Middle East, RentCafe UK, Resident Screening, VendorCafe, Voyager7s, Voyager8, Yardi EHR Interfaces]
+  canada_components:
+    - Voyager7s / Canada
+    - Voyager8 / Canada
+    - Breeze / Canada
+    - Elevate / Canada
+    - Investor Portal / Canada
+    - Resident Screening / Canada
+    - Yardi EHR Interfaces / Canada
+  api_components: [RentCafe / API, RentCafe ANZ / API, RentCafe UK / API, RentCafe Middle East / API, Payment Processing / Payments API]
+  observed_state: {indicator: none, description: All Systems Operational, observed_at: '2026-07-27T01:34:30.213Z'}
+  recent_incidents_observed:
+    - {name: 'Payment Processing Payment Processor', created_at: '2026-07-19T09:15:16.648Z', impact: major, status: resolved}
+    - {name: 'Issue impacting Yardi Voyager users in the Canada region', created_at: '2026-07-17T01:30:11.919Z', impact: major}
+    - {name: '2026-07-16 Voyager US East issues', created_at: '2026-07-16T06:24:54.621Z', impact: major}
+  recent_maintenance_observed:
+    - {name: 'Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT', scheduled_for: '2026-04-24T03:00:00.000Z'}
+    - {name: 'Maintenance - RentCafe - Thursday 9th April - 7pm Pacific', scheduled_for: '2026-04-10T02:00:00.000Z'}
+  note: Regional maintenance windows for Canada are announced on this page, which is the only public advance notice a Canadian integrator gets.
+versioning:
+  scheme: product-and-program versioning, announced editorially
+  evidence:
+    - RentCafe API moved to APIv2 under a new program announced 2023-10-30, with a 2023-12-31 transition date. Yardi stated it "will not discontinue APIs for vendors missing this deadline" — a migration with no forced sunset.
+    - Voyager appears on the status page as two concurrent major generations, Voyager7s and Voyager8, each with its own Canada component; both are live simultaneously.
+    - The Virtuoso Connector moved from early access (announced 2025-09-10) to available-now in Virtuoso Enterprise (announced 2026-06-16).
+  docs: null
+  note: No version identifier appears in any published base URL, because no base URL is published for the gated interfaces.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: unknown
+  detail: >-
+    No deprecation policy, no RFC 8594 Sunset/Deprecation header commitment, and no
+    end-of-life calendar is published for any Yardi interface. The single observed
+    version transition (RentCafe APIv1 to APIv2) was communicated by press release
+    with a soft deadline and an explicit promise not to cut off laggards.
+sla:
+  url: null
+  uptime_target: null
+  detail: >-
+    No public SLA or uptime target. Yardi's cloud-security page markets 24/7 monitoring
+    and disaster recovery but commits to no number. Availability terms sit in the
+    client agreement, which is not published.
+support:
+  technical_support: https://www.yardi.com/company/technical-support/
+  client_portal: https://clientcentral.yardi.com/
+  interface_support: >-
+    API support transitioned to Yardi's interfaces team per the 2023 RentCafe APIv2
+    announcement; Yardi reported over 300 interface vendors then and 450+ standard
+    interface partners on its current interfaces page.
+deprecated_operations: []

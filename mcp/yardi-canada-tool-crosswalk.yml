@@ -1,0 +1,74 @@
+generated: '2026-07-26'
+method: derived
+source: mcp/yardi-canada-mcp.yml
+summary: >-
+  Yardi is the cleanest example in the catalogue of an MCP surface and a REST surface
+  that do not overlap at all. The agent surface (Yardi Virtuoso Connector) reaches the
+  property-management core — portfolio performance, financials, work orders, invoice
+  approval — and none of it has a public REST operation. The REST surface (the status
+  API) reaches service health and has no MCP tool. Coverage is therefore zero in both
+  directions, and that is the finding, not a mapping failure: an agent that can approve
+  a Yardi invoice cannot read a Yardi endpoint, and vice versa.
+surfaces:
+  openapi:
+    file: openapi/yardi-canada-status-openapi.yml
+    scope: Yardi Systems Status API only
+    gated: false
+    operations: 8
+  mcp:
+    url: https://mcp.virtuoso.ai
+    listing: https://claude.com/connectors/yardi-virtuoso
+    gated: true
+    gate_detail: >-
+      tools/list is not anonymously callable — every POST is answered with an HTML 403
+      by Cloudflare. Tool names and inputSchemas are unknown, so this crosswalk maps
+      published CAPABILITIES, not tool names.
+  graphql:
+    endpoint: null
+    note: No GraphQL surface found on any Yardi host.
+  gated_rest:
+    surfaces: [Voyager Standard Interfaces, RentCafe API]
+    gated: true
+    note: Real but unpublished; no operationIds exist to bind to, other than the nine RentCafe operation names listed in the RentCafe API Terms of Use Schedule A.
+crosswalk: []
+mcp_only:
+  - capability: portfolio-performance
+    reason: No public REST operation exists for portfolio metrics; backed by the gated Virtuoso/Voyager core.
+  - capability: financial-data
+    reason: NOI and financial comparisons have no published REST equivalent.
+  - capability: work-orders
+    reason: Work-order create/track has no published REST equivalent; the Maintenance Standard Interface that would back it is partner-gated with no published contract.
+  - capability: invoice-approval
+    reason: Invoice review/approval has no published REST equivalent; the Payables Standard Interface is partner-gated.
+  - capability: quarterly-business-review
+    reason: Composite reporting flow, not a single operation on any published surface.
+  - capability: budget-forecasting
+    reason: Forecasting/scenario capability with no published REST equivalent.
+rest_only:
+  - capability: service-status
+    operations: [getStatusSummary, getStatus]
+    reason: No MCP tool is published for status; an agent asking "is Yardi Canada up?" must call the REST status API directly.
+  - capability: service-components
+    operations: [listComponents]
+    reason: Region/product component tree, including the Canada components, has no MCP tool.
+  - capability: incidents
+    operations: [listIncidents, listUnresolvedIncidents]
+    reason: No MCP tool for incident history or live incidents.
+  - capability: scheduled-maintenance
+    operations: [listScheduledMaintenances, listUpcomingScheduledMaintenances, listActiveScheduledMaintenances]
+    reason: No MCP tool for maintenance windows, including the Canada Region windows.
+unmapped_gated_operations:
+  note: >-
+    The RentCafe API Terms of Use Schedule A names nine operations —
+    getapartmentavailability, getfloorplans, getunitpricingdetails, getpropertydetails,
+    getamenities, getofficehours, createlead, getavailableslots, createappointment.
+    They are recorded here as evidence of a real surface, not as bindable operationIds:
+    no path, base URL, parameter or schema is published for any of them.
+coverage:
+  mcp_capabilities_published: 6
+  mcp_tools_named: 0
+  mcp_tools_bound_to_rest: 0
+  mcp_only: 6
+  rest_operations_total: 8
+  rest_operations_with_a_tool: 0
+  binding_rate: 0.0

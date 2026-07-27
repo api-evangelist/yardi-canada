@@ -1,0 +1,64 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/yardi-canada-status-openapi.yml
+summary: >-
+  The only Yardi entity graph that can be derived from a machine-readable contract is
+  the status-page model, because it is the only contract that exists. It is small but
+  real, and for a Yardi Canada integrator it is the graph that answers "is my region
+  up": a Page owns Components (self-nesting into product groups with a Canada child),
+  Incidents and ScheduledMaintenances, each of which fans out to IncidentUpdates and
+  back to the Components it affects. The property-management entities that matter
+  commercially — property, unit, lease, resident, ledger, work order — have no
+  published schema anywhere, so no graph is asserted for them.
+entities:
+  - name: Page
+    description: The status page itself.
+    id_field: id
+    id_example: 3cqj0pmpypxd
+    fields: [id, name, url, time_zone, updated_at]
+  - name: StatusIndicator
+    description: Rolled-up status for the whole page.
+    fields: [indicator, description]
+  - name: Component
+    description: One product, region or sub-service. Self-nesting — a component with group=true contains children.
+    id_field: id
+    fields: [id, name, status, created_at, updated_at, position, description, showcase, start_date, group_id, page_id, group, only_show_if_degraded, components]
+    instances_observed: 134
+    groups_observed: 16
+  - name: Incident
+    description: An unplanned service incident with its update history.
+    id_field: id
+    fields: [id, name, status, impact, created_at, updated_at, started_at, monitoring_at, resolved_at, shortlink, page_id, reminder_intervals, components, incident_updates]
+  - name: IncidentUpdate
+    description: One posted update on an incident or maintenance.
+    id_field: id
+    fields: [id, status, body, incident_id, created_at, updated_at, display_at, affected_components, deliver_notifications, custom_tweet, tweet_id]
+  - name: ScheduledMaintenance
+    description: A planned maintenance window. Same shape as Incident plus a scheduled window.
+    id_field: id
+    fields: [id, name, status, impact, created_at, updated_at, started_at, monitoring_at, resolved_at, scheduled_for, scheduled_until, shortlink, page_id, components, incident_updates]
+relationships:
+  - {from: Page, to: Component, type: has_many, via: page_id}
+  - {from: Page, to: Incident, type: has_many, via: page_id}
+  - {from: Page, to: ScheduledMaintenance, type: has_many, via: page_id}
+  - {from: Page, to: StatusIndicator, type: has_one, via: status}
+  - {from: Component, to: Component, type: belongs_to, via: group_id, note: 'Child components (for example "Canada") point at their product group (for example "Voyager8").'}
+  - {from: Component, to: Component, type: has_many, via: components, note: Only on group components.}
+  - {from: Incident, to: IncidentUpdate, type: has_many, via: incident_id}
+  - {from: Incident, to: Component, type: has_many, via: components, note: Affected components, embedded verbatim.}
+  - {from: ScheduledMaintenance, to: IncidentUpdate, type: has_many, via: incident_id}
+  - {from: ScheduledMaintenance, to: Component, type: has_many, via: components}
+id_conventions:
+  format: 12-character lowercase alphanumeric opaque ids, no type prefix.
+  examples: [3cqj0pmpypxd (page), m5cxlbn41qsg (component), 5pshx4ms4grv (incident)]
+  note: Ids are not type-prefixed, so an id alone does not identify its entity type.
+canada_slice:
+  note: >-
+    Components named "Canada" exist under the Voyager7s, Voyager8, Breeze, Elevate,
+    Investor Portal, Resident Screening and Yardi EHR Interfaces groups. To resolve the
+    Canadian slice, filter components where name == "Canada" and join group_id back to
+    the parent group component to learn which product the region belongs to.
+not_modelled:
+  - Voyager Standard Interface entities (property, unit, lease, resident, payable, receivable, work order, screening result) — no published schema, MITS/OSCRE lineage claimed in prose only.
+  - RentCafe API entities — the Terms of Use names operations (getapartmentavailability, getfloorplans, getunitpricingdetails, getpropertydetails, getamenities, getofficehours, createlead, getavailableslots, createappointment) but publishes no request or response schema.
+  - Virtuoso MCP tool inputs — tools/list is not anonymously introspectable.

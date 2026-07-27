@@ -65,7 +65,7 @@ See [review.yml](review.yml) for the full probe log, RESO posture, access gate, 
 | Access gate | `partner-only` — Interface Partnership Program application, a Data Exchange Agreement per interface type, 2+ years in business, 3+ active Voyager clients, annual per-interface fee; the RentCafe API additionally requires a RentCafe API Access Agreement and confines use to "Common Clients" |
 | Open data | No — Yardi Matrix and Canadian rent research are subscription products; Canada's open counterweight is weak because land registration is privatised (Teranet) and listings sit with a single national co-operative (CREA DDF) |
 | Auth model | Opaque access token issued under contract; no scheme documented, and no OpenID Connect discovery document is served on `www.yardi.com` or `www.yardibreeze.ca` (both 404) |
-| Machine-readable public surface | None — no OpenAPI, no OData `$metadata`, no AsyncAPI, no GraphQL, no SDK, no CLI, no Postman collection, no webhooks |
+| Machine-readable public surface | **Corrected 2026-07-26** — two exist, and neither is REST-with-a-portal: an official first-party MCP server (`https://mcp.virtuoso.ai`, with anonymous RFC 8414 / RFC 9728 OAuth metadata) and a public status API (`https://status.yardi.com/api/v2`, 8 unauthenticated endpoints). Still no OpenAPI published by Yardi, no OData `$metadata`, no AsyncAPI, no GraphQL, no SDK, no CLI, no Postman collection, no webhooks |
 | Primary domain | `yardi.ca` resolves to 104.156.161.80 but serves nothing; the live Canadian site is `www.yardibreeze.ca` |
 
 ## Common Properties
@@ -83,3 +83,65 @@ See [review.yml](review.yml) for the full probe log, RESO posture, access gate, 
 ## Maintainers
 
 - Kin Lane — kin@apievangelist.com
+
+## Enrichment round 2 (2026-07-26)
+
+Round 1 recorded "no machine-readable contract to capture". Probing the hosts round 1
+never reached corrected that in two places. The access gate is unchanged — the Voyager
+Standard Interfaces and the RentCafe API are still partner-only with no published
+contract — but Yardi's public surface is not empty.
+
+### Yardi ships an official MCP server
+
+The **Yardi Virtuoso Connector** is listed on the Anthropic connector directory
+([claude.com/connectors/yardi-virtuoso](https://claude.com/connectors/yardi-virtuoso))
+and served from `https://mcp.virtuoso.ai`. Announced in early access 2025-09-10 and as
+available-now in Virtuoso Enterprise 2026-06-16, declared **Read & Write**, with
+published capabilities for portfolio performance, financial data and NOI comparison,
+work order management, invoice review and approval, quarterly business review and
+budget forecasting.
+
+Its authorization contract is anonymous and genuinely machine-readable — RFC 9728
+protected-resource metadata and RFC 8414 authorization-server metadata, both saved
+verbatim in [`well-known/`](well-known/): OAuth 2.1 authorization code, PKCE `S256`,
+refresh tokens, dynamic client registration, scopes `openid profile email
+offline_access`. Those scopes carry identity only; Yardi states data access follows the
+caller's existing Yardi user permissions.
+
+**No tool names are recorded in this repository.** Anonymous `tools/list` is blocked by
+Cloudflare (HTML 403 on `/mcp`, `/sse`, `/v1/mcp`, `/api/mcp`, `/mcp/v1` and `/`), and
+the connector's technical documentation returns HTTP 401. Tool lists published by
+third-party MCP directories were deliberately not copied in.
+
+### A public, Canada-sliced status API
+
+`https://status.yardi.com` is a full Atlassian Statuspage whose eight JSON endpoints
+Yardi documents itself at [status.yardi.com/api](https://status.yardi.com/api). All
+eight return HTTP 200 anonymously. The page carries **134 components in 16 product
+groups**, and seven of those groups expose an explicit **Canada** component — Voyager7s,
+Voyager8, Breeze, Elevate, Investor Portal, Resident Screening and Yardi EHR Interfaces.
+Canadian events are named outright ("Issue impacting Yardi Voyager users in the Canada
+region", 2026-07-17; "Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT").
+That makes it the only anonymous, machine-readable read on Yardi Canada's production
+service health, and [`openapi/yardi-canada-status-openapi.yml`](openapi/yardi-canada-status-openapi.yml)
+was derived from Yardi's own published endpoint list plus the verified live responses.
+
+### Artifacts added this round
+
+| Artifact | What it records |
+| --- | --- |
+| [`openapi/`](openapi/) | The status API, 8 operations, derived from the published endpoint list + verified 200s |
+| [`overlays/`](overlays/) | API Evangelist annotations over that spec, including the Canadian component filter |
+| [`mcp/`](mcp/) | The Virtuoso Connector profile, and a tool crosswalk recording that the MCP and REST surfaces do not overlap at all (binding rate 0.0) |
+| [`well-known/`](well-known/) | Two real OAuth discovery documents, plus every miss across five hosts |
+| [`authentication/`](authentication/) · [`scopes/`](scopes/) | Three coexisting auth regimes; the four published OAuth scopes |
+| [`conformance/`](conformance/) | PCI, SSAE 18 / SOC 1 + SOC 2, SOX, HIPAA, CSA STAR Level 2, FIPS 140-2; MCP authorization, RFC 8414, RFC 9728, PKCE, DCR; no RESO, no OData, no RFC 9457 |
+| [`security/`](security/) | The Cloud Security page as trust surface; TLS/HSTS/DNS probes across five hosts (no DNSSEC, no CAA, no DMARC on `yardibreeze.ca`) |
+| [`lifecycle/`](lifecycle/) · [`changelog/`](changelog/) | Status page detail and Canadian incident history; seasonal Breeze Premier release posts; no deprecation policy, no SLA, no API changelog |
+| [`conventions/`](conventions/) · [`data-model/`](data-model/) | What is knowable per surface (idempotency is genuinely absent); the status entity graph and how to resolve the Canadian slice |
+| [`packages/`](packages/) | Zero official SDKs; two community clients, one a SOAP client that corroborates the interface style |
+| [`sandbox/`](sandbox/) | A real vendor sandbox that no developer can reach |
+| [`skills/`](skills/) | Three agent skills grounded in verified operationIds and verified OAuth metadata |
+| [`llms/`](llms/) | A generated llms.txt — Yardi's `robots.txt` allows `/llms.txt` for AI crawlers, but that file 404s |
+
+See [review.yml](review.yml) `enrichmentRound2` for the full probe log.

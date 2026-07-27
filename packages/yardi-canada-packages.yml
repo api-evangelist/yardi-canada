@@ -1,0 +1,78 @@
+generated: '2026-07-26'
+method: searched
+source: registry searches on 2026-07-26
+summary: >-
+  Yardi ships no client libraries. npm, PyPI, NuGet, RubyGems, Packagist, crates.io and
+  pkg.go.dev were searched for first-party Yardi, Voyager, RentCafe and Virtuoso
+  packages and nothing official was found — which is the expected result for a vendor
+  whose interfaces are only reachable after a signed Data Exchange Agreement. The two
+  results worth recording are a near-miss and a false positive, both noted below so a
+  later round does not re-litigate them.
+official_sdks: 0
+packages: []
+candidates:
+  - language: csharp
+    registry: nuget
+    name: com.yardi.chatiq-actions-net7
+    url: https://www.nuget.org/packages/com.yardi.chatiq-actions-net7
+    description: ChatIQ Actions SDK
+    version: 0.0.1
+    published: '2023-02-01'
+    author: Prakash Dale
+    license: MIT
+    official: false
+    confidence: low
+    note: >-
+      The `com.yardi.` id namespace and the product name (ChatIQ is a real Yardi
+      product and appears as a component on status.yardi.com) both point at Yardi, but
+      the package is a single 0.0.1 release from an individual author account with no
+      project URL, no repository and no downloads story. Not treated as an official
+      SDK and no SDKs pointer is emitted for it.
+community_clients:
+  - language: ruby
+    registry: rubygems
+    name: yardi
+    url: https://rubygems.org/gems/yardi
+    description: A ruby client for v4 of Yardi's API
+    author: Heidi Galbraith
+    downloads: 7639
+    official: false
+    note: >-
+      Third-party. Its existence, and its "v4" versioning, is the clearest public
+      evidence that a versioned Yardi API surface is real and in production use — but
+      the contract behind it is not published by Yardi.
+  - language: php
+    registry: packagist
+    name: samrap/yardi-client
+    url: https://packagist.org/packages/samrap/yardi-client
+    description: A PHP SOAP interface to Yardi CMS. Forked from curiosity26/YardiClient
+    repository: https://github.com/samrap/yardi-client
+    downloads: 28
+    official: false
+    note: >-
+      Third-party, and materially informative: it implements Yardi's interfaces over
+      SOAP, corroborating that the Voyager Standard Interfaces are SOAP web services
+      rather than REST — a fact Yardi's own public pages never state.
+false_positives:
+  - registry: nuget
+    names: [Kooboo.Common, Kooboo.Common.Web, Kooboo.Common.Data, Kooboo.Common.Windows, Kooboo.Common.CachingSync.Azure, Kooboo.Common.CachingSync.Http]
+    author: Yardi Technology Limited
+    note: >-
+      Different company. "Yardi Technology Limited" is the publisher of the Kooboo CMS,
+      unrelated to Yardi Systems, LLC. Name collision only.
+  - registry: npm
+    names: ['@browser-automation-hub/yardi-voyager-browser-automation', '@rashidazarang/pmip-core', '@span-studio/craft-yardi-templates']
+    note: >-
+      Third-party integrations and browser-automation wrappers built around Yardi, not
+      published by Yardi. Their existence is itself evidence of the access gate — when
+      a vendor will not publish an API, the ecosystem automates the UI instead.
+registries_searched:
+  - {registry: npm, query: 'yardi, rentcafe, chatiq', official_hits: 0, note: 'five third-party matches for "yardi", none first-party'}
+  - {registry: pypi, query: 'yardi, yardi-api, pyyardi, rentcafe', official_hits: 0, note: all four 404}
+  - {registry: nuget, query: yardi, official_hits: 0, total_hits: 8}
+  - {registry: rubygems, query: yardi, official_hits: 0, community_hits: 2, note: 'gems "yardi" and "yardie"'}
+  - {registry: packagist, query: yardi, official_hits: 0, community_hits: 1}
+  - {registry: 'crates.io', query: yardi, official_hits: 0, total_hits: 0}
+  - {registry: 'maven central', query: yardi, official_hits: 0, total_hits: 0}
+  - {registry: 'proxy.golang.org', query: 'github.com/yardisystems/', official_hits: 0, note: 404}
+  - {registry: github, org: YardiSystems, official_hits: 0, note: '13 public repositories, every one an archived fork of unrelated third-party OSS; the organisation itself carries archived_at 2025-09-15.'}

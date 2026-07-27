@@ -455,3 +455,87 @@ actions:
   openapiHarvested: false
   specsCount: 0
   readmeCreated: true
+
+enrichmentRound2:
+  date: '2026-07-26'
+  reviewer: API Evangelist enrichment pipeline
+  correctsEarlierFinding: true
+  summary: |
+    Round 1 concluded that Yardi Canada has "no machine-readable contract to capture".
+    That conclusion was wrong in two specific ways, and both were found by probing
+    hosts round 1 never reached. Neither finding softens the access-gate story — the
+    Voyager Standard Interfaces and the RentCafe API remain partner-gated with no
+    published contract — but the profile now records two real public surfaces.
+
+    FIRST: Yardi ships an official, first-party MCP server. The Yardi Virtuoso
+    Connector is listed on the Anthropic connector directory at
+    https://claude.com/connectors/yardi-virtuoso and served from
+    https://mcp.virtuoso.ai. Yardi announced it in early access on 2025-09-10 and as
+    available-now in Virtuoso Enterprise on 2026-06-16, claiming to be "the only
+    property management software provider in the real estate industry with an MCP
+    connector available on the Anthropic marketplace". It is declared Read & Write,
+    and its published capabilities are portfolio performance, financial data and NOI
+    comparison, work order management, invoice review and approval, quarterly business
+    review, and budget forecasting.
+
+    Its authorization contract is genuinely machine-readable and anonymous:
+    https://mcp.virtuoso.ai/.well-known/oauth-protected-resource (RFC 9728, HTTP 200)
+    and https://mcp.virtuoso.ai/.well-known/oauth-authorization-server (RFC 8414, HTTP
+    200) publish an OAuth 2.1 authorization-code flow with PKCE S256, refresh tokens,
+    dynamic client registration at /oauth/register, and the scopes openid, profile,
+    email and offline_access. Both documents are saved verbatim in well-known/. The
+    scopes are identity-only — Yardi states data access "automatically follows existing
+    user permissions", so the Yardi role is the real boundary. The tool list is NOT
+    recorded anywhere in this repo: anonymous POSTs to /mcp, /sse, /v1/mcp, /api/mcp,
+    /mcp/v1 and / were each answered with an HTML 403 by Cloudflare, and the
+    connector's own technical documentation at help.virtuoso.ai returns HTTP 401. Tool
+    names circulating in third-party MCP directories were deliberately not recorded.
+
+    SECOND: status.yardi.com is a full Atlassian Statuspage with a public,
+    unauthenticated JSON API whose eight endpoints Yardi documents itself at
+    https://status.yardi.com/api. All eight returned HTTP 200. The page carries 134
+    components in 16 product groups, and seven of those groups expose an explicit
+    Canada component — Voyager7s, Voyager8, Breeze, Elevate, Investor Portal, Resident
+    Screening and Yardi EHR Interfaces. Canadian incidents and maintenance windows are
+    named outright ("Issue impacting Yardi Voyager users in the Canada region",
+    2026-07-17; "Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT"). This
+    is the only anonymous, machine-readable read on Yardi Canada's production service
+    health, and an OpenAPI was derived from Yardi's own published endpoint list plus
+    the verified live responses. Yardi still publishes no OpenAPI of its own.
+
+    THIRD, smaller: https://www.yardi.com/company/cloud-security/ — reachable only
+    through the company sitemap, not through site navigation — publishes a real
+    compliance posture (PCI, SSAE 18 with annual SOC 2 and biannual SOC 1,
+    Sarbanes-Oxley, HIPAA for senior-living health data, CSA STAR Level 2, FIPS 140-2
+    key management, AES-256 at rest on request). And www.yardi.com/robots.txt, updated
+    2026-07, repeatedly writes `Allow: /llms.txt` for AI crawlers while
+    https://www.yardi.com/llms.txt returns HTTP 404 — an AI policy pointing at a file
+    that does not exist.
+  stillAbsent:
+    - No OpenAPI, WSDL, OData $metadata or GraphQL published by Yardi for any product interface.
+    - No webhooks, events or AsyncAPI on any surface.
+    - No official SDK, CLI or Postman collection in any package registry.
+    - No security.txt, vulnerability disclosure policy or bug bounty anywhere on the estate.
+    - No deprecation policy, no SLA, no API changelog.
+    - No RESO certification (directory re-confirmed in round 1).
+  newProbes:
+    - {url: 'https://claude.com/connectors/yardi-virtuoso', status: 200}
+    - {url: 'https://mcp.virtuoso.ai/', status: 403, note: Cloudflare bot layer, HTML; the host exists.}
+    - {url: 'https://mcp.virtuoso.ai/.well-known/oauth-protected-resource', status: 200, note: RFC 9728 JSON, saved verbatim.}
+    - {url: 'https://mcp.virtuoso.ai/.well-known/oauth-authorization-server', status: 200, note: RFC 8414 JSON, saved verbatim.}
+    - {url: 'https://help.virtuoso.ai/en/articles/13679727-yardi-virtuoso-mcp-technical-documentation-guide', status: 401, note: MCP technical guide is customer-only.}
+    - {url: 'https://virtuoso.ai/', status: 200, note: 'Virtuoso Marketplace SPA; returns its HTML shell for every path including /.well-known/*, so those 200s are not discovery documents.'}
+    - {url: 'https://status.yardi.com/', status: 200}
+    - {url: 'https://status.yardi.com/api', status: 200, note: Yardi's own published endpoint list for the status API.}
+    - {url: 'https://status.yardi.com/api/v2/summary.json', status: 200, note: 43811 bytes, 134 components, 16 groups.}
+    - {url: 'https://status.yardi.com/api/v2/incidents.json', status: 200, note: 184611 bytes, 50 incidents.}
+    - {url: 'https://status.yardi.com/api/v2/scheduled-maintenances.json', status: 200, note: 275222 bytes, 50 windows.}
+    - {url: 'https://www.yardi.com/company/cloud-security/', status: 200, note: Named certifications; reachable only via sitemap.}
+    - {url: 'https://www.yardi.com/company/legal/', status: 200}
+    - {url: 'https://www.yardi.com/company/technical-support/', status: 200}
+    - {url: 'https://resources.yardi.com/legal/privacy-statement/', status: 200}
+    - {url: 'https://clientcentral.yardi.com/', status: 200}
+    - {url: 'https://www.yardibreeze.ca/feed/', status: 200}
+    - {url: 'https://registry.modelcontextprotocol.io/v0/servers?search=yardi', status: 200, note: 'zero results — the connector is not in the official MCP registry.'}
+    - {url: 'https://rubygems.org/api/v1/gems/yardi.json', status: 200, note: 'Third-party ruby client for "v4 of Yardi''s API", 7,639 downloads.'}
+    - {url: 'https://packagist.org/packages/samrap/yardi-client.json', status: 200, note: Third-party PHP SOAP client, corroborating that the Voyager interfaces are SOAP.}

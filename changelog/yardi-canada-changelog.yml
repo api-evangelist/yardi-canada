@@ -1,0 +1,70 @@
+generated: '2026-07-26'
+method: searched
+source: https://www.yardibreeze.ca/blog/category/news/
+sources:
+  - https://www.yardibreeze.ca/blog/2026/06/whats-new-yardi-breeze-premier-summer-2026/
+  - https://www.yardibreeze.ca/blog/2025/08/whats-new-in-breeze-premier/
+  - https://www.yardi.com/news/press-releases/
+summary: >-
+  There is no API changelog, no release-notes feed and no dated version history for
+  any Yardi interface. What exists — and what is recorded here because it is genuinely
+  dated, product-specific and published on the Canadian property — is a seasonal
+  "What's new in Yardi Breeze Premier" post series on www.yardibreeze.ca, plus Yardi's
+  press-release stream for platform-level announcements. The Breeze posts describe
+  real feature-level changes (permissions, notifications, workflow behaviour), so they
+  function as informal release notes for the product a Yardi Canada Breeze client
+  actually runs. Formal, versioned change communication for the gated interfaces lives
+  behind Client Central.
+scheme: seasonal product update posts (irregular cadence, no version numbers)
+current_version: null
+feed: https://www.yardibreeze.ca/feed/
+api_changelog: none published
+entries:
+  - date: '2026-06-08'
+    product: Yardi Breeze Premier (Canada)
+    title: 'What''s new in Yardi Breeze Premier: Summer 2026'
+    url: https://www.yardibreeze.ca/blog/2026/06/whats-new-yardi-breeze-premier-summer-2026/
+    breaking: false
+    additions:
+      - Opt-in email on every triggered system notification (payment failures, services enabled).
+      - Maintenance request auto-notifications for requests created in the platform or mobile app.
+      - Email history report extended to include maintenance request emails (full communication audit trail).
+      - Vendor categories — custom groupings assignable to vendors for filtering in maintenance, payments and vendor lists.
+      - New permission controlling which users can view vendor financial details in the vendor ledger.
+      - Smart AP (AI invoice processing) can be triggered from inside the platform; PDF upload auto-codes fields in about five minutes.
+      - Hold checkbox on Vendor and Owner profiles, and at individual payable level, to pause payments with permission controls.
+      - New dashboard widgets, including Publish to RentCafe status and recurring payments.
+  - date: '2025-08-11'
+    product: Yardi Breeze Premier (Canada)
+    title: 'Client feedback, our update: What''s new in Breeze Premier'
+    url: https://www.yardibreeze.ca/blog/2025/08/whats-new-in-breeze-premier/
+    breaking: false
+    additions:
+      - Recurring journal entries can be deleted when no longer needed.
+      - Payables import using EFT payment methods.
+      - Inactive bank accounts hidden by default, with filters to show them.
+      - Tenant statement correspondence reports can be scheduled and emailed automatically.
+      - Remittance advice reports include a payment date column.
+      - Configurable handling of rejected invoices (leave in place, or return to workflow).
+      - Larger note fields and resizable attached PDFs on invoice screens.
+      - Move-out dates shown directly in the tenant list view.
+platform_announcements:
+  - date: '2026-06-16'
+    title: Yardi adds Virtuoso Connector for Claude to its AI platform, Virtuoso Enterprise
+    url: https://www.yardi.com/news/press-releases/yardi-adds-virtuoso-connector-for-claude-to-its-ai-platform/
+    significance: The MCP connector moves from early access to available now in Virtuoso Enterprise.
+  - date: '2025-09-10'
+    title: Yardi announces first property management connector for Anthropic's Claude
+    url: https://www.yardi.com/news/press-releases/yardi-announces-first-property-management-connector-anthropic-claude/
+    significance: First announcement of the MCP connector, in early access.
+  - date: '2023-10-30'
+    title: Yardi Announces New RentCafe API Program
+    url: https://www.yardi.com/news/press-releases/yardi-announces-new-rentcafe-api-program/
+    significance: >-
+      RentCafe APIv2 — tour scheduling (virtual, guided, self-guided), a dedicated
+      vendor sandbox, transaction-based pricing with a new annual price cap, support
+      moved to the interfaces team, 2023-12-31 transition date with no forced cutoff.
+gaps:
+  - No changelog for the Voyager Standard Interfaces, the RentCafe API or the Virtuoso MCP connector.
+  - No RSS/Atom feed dedicated to product releases; the Breeze posts share the general blog feed.
+  - No version numbers, no dated diff of endpoints or fields, nothing an integrator could diff against.
