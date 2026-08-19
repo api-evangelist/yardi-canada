@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Yardi Systems Status API",
+    "version": "v2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the full status page summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://status.yardi.com/api/v2/summary.json"
+          },
+          "docs": "Returns the page identity, the rolled-up status indicator, every component (including group components and their children), all unresolved incidents and all upcoming or in-progress scheduled maintenances in one document."
+        },
+        {
+          "info": {
+            "name": "Get the rolled-up page status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://status.yardi.com/api/v2/status.json"
+          },
+          "docs": "Returns only the page identity and the single rolled-up status indicator for all Yardi systems."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Components",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List every status component",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://status.yardi.com/api/v2/components.json"
+          },
+          "docs": "Returns all 134 components on the Yardi Systems status page, including the 16 group components and their children. Canadian components appear as a component named `Canada` whose `group_id` resolves to the Voyager7s, Voyager8, Breeze, Elevate, Investor Portal, Resident Screening or Yardi EHR Interfaces group."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Incidents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List recent incidents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://status.yardi.com/api/v2/incidents.json"
+          },
+          "docs": "Returns the most recent incidents (50 in the observed response), newest first, each with its full update history and affected components. Canadian incidents are named explicitly, for example \"Issue impacting Yardi Voyager users in the Canada region\"."
+        },
+        {
+          "info": {
+            "name": "List unresolved incidents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://status.yardi.com/api/v2/incidents/unresolved.json"
+          },
+          "docs": "Returns only incidents that are not yet resolved. An empty array is the normal, healthy result."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Maintenance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List recent and upcoming scheduled maintenances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://status.yardi.com/api/v2/scheduled-maintenances.json"
+          },
+          "docs": "Returns the most recent scheduled maintenance windows (50 in the observed response), newest first. Regional windows are named explicitly, for example \"Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT\"."
+        },
+        {
+          "info": {
+            "name": "List upcoming scheduled maintenances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://status.yardi.com/api/v2/scheduled-maintenances/upcoming.json"
+          },
+          "docs": "Returns only maintenance windows scheduled in the future."
+        },
+        {
+          "info": {
+            "name": "List in-progress scheduled maintenances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://status.yardi.com/api/v2/scheduled-maintenances/active.json"
+          },
+          "docs": "Returns only maintenance windows currently in progress."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

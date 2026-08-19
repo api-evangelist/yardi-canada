@@ -1,0 +1,631 @@
+{
+  "item": [
+    {
+      "id": "7373de06-1b8a-4b4c-bacd-b0789c9e9d6c",
+      "name": "Status",
+      "description": {
+        "content": "Rolled-up page status",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "08b7715b-18aa-443c-8a2f-28a9def100fd",
+          "name": "Get the full status page summary",
+          "request": {
+            "name": "Get the full status page summary",
+            "description": {
+              "content": "Returns the page identity, the rolled-up status indicator, every component (including group components and their children), all unresolved incidents and all upcoming or in-progress scheduled maintenances in one document.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "summary.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "40b2319e-1730-46a9-9459-211c6d1f2098",
+              "name": "Status page summary",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "summary.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"id\": \"3cqj0pmpypxd\",\n    \"name\": \"Yardi Systems\",\n    \"url\": \"https://status.yardi.com\",\n    \"time_zone\": \"Etc/UTC\",\n    \"updated_at\": \"2026-07-27T01:34:30.213Z\"\n  },\n  \"status\": {\n    \"indicator\": \"none\",\n    \"description\": \"All Systems Operational\"\n  },\n  \"components\": [],\n  \"incidents\": [],\n  \"scheduled_maintenances\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd50c612-f64f-4c88-91c2-68026331a86d",
+          "name": "Get the rolled-up page status",
+          "request": {
+            "name": "Get the rolled-up page status",
+            "description": {
+              "content": "Returns only the page identity and the single rolled-up status indicator for all Yardi systems.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "status.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b32926e-bbda-476f-b0e6-78c1845434df",
+              "name": "Rolled-up status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"id\": \"3cqj0pmpypxd\",\n    \"name\": \"Yardi Systems\",\n    \"url\": \"https://status.yardi.com\",\n    \"time_zone\": \"Etc/UTC\",\n    \"updated_at\": \"2026-07-27T01:34:30.213Z\"\n  },\n  \"status\": {\n    \"indicator\": \"none\",\n    \"description\": \"All Systems Operational\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "dcdc4cf7-0b9a-47bc-9b71-7b3a67087c06",
+      "name": "Components",
+      "description": {
+        "content": "Per-product and per-region service components",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3d63d405-83e7-4fcd-801b-d55bd3afc48a",
+          "name": "List every status component",
+          "request": {
+            "name": "List every status component",
+            "description": {
+              "content": "Returns all 134 components on the Yardi Systems status page, including the 16 group components and their children. Canadian components appear as a component named `Canada` whose `group_id` resolves to the Voyager7s, Voyager8, Breeze, Elevate, Investor Portal, Resident Screening or Yardi EHR Interfaces group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "components.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b87214a6-c484-46e9-b2aa-2420fd9dd292",
+              "name": "Component list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "components.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"id\": \"3cqj0pmpypxd\",\n    \"name\": \"Yardi Systems\",\n    \"url\": \"https://status.yardi.com\",\n    \"updated_at\": \"1998-05-15T06:28:16.346Z\",\n    \"time_zone\": \"Etc/UTC\"\n  },\n  \"components\": [\n    {\n      \"id\": \"m5cxlbn41qsg\",\n      \"name\": \"Canada\",\n      \"status\": \"operational\",\n      \"page_id\": \"string\",\n      \"group\": true,\n      \"created_at\": \"1989-08-24T11:03:33.510Z\",\n      \"updated_at\": \"1954-09-15T18:38:18.710Z\",\n      \"position\": 8667,\n      \"description\": \"string\",\n      \"showcase\": true,\n      \"start_date\": \"1985-08-28\",\n      \"group_id\": \"string\",\n      \"only_show_if_degraded\": true,\n      \"components\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": \"m5cxlbn41qsg\",\n      \"name\": \"Canada\",\n      \"status\": \"operational\",\n      \"page_id\": \"string\",\n      \"group\": false,\n      \"created_at\": \"1991-06-19T04:37:51.314Z\",\n      \"updated_at\": \"2024-12-11T11:07:44.712Z\",\n      \"position\": 2103,\n      \"description\": \"string\",\n      \"showcase\": false,\n      \"start_date\": \"1989-08-31\",\n      \"group_id\": \"string\",\n      \"only_show_if_degraded\": true,\n      \"components\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f2a188f5-dcb1-40f8-99ee-830d7b65bba1",
+      "name": "Incidents",
+      "description": {
+        "content": "Unplanned service incidents and their updates",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "416f4f6d-537b-434c-885c-4989352c62a4",
+          "name": "List recent incidents",
+          "request": {
+            "name": "List recent incidents",
+            "description": {
+              "content": "Returns the most recent incidents (50 in the observed response), newest first, each with its full update history and affected components. Canadian incidents are named explicitly, for example \"Issue impacting Yardi Voyager users in the Canada region\".",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "incidents.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "56b6b65f-70d1-48be-b197-0981bd115cd9",
+              "name": "Incident list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "incidents.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"id\": \"3cqj0pmpypxd\",\n    \"name\": \"Yardi Systems\",\n    \"url\": \"https://status.yardi.com\",\n    \"updated_at\": \"1989-02-09T23:42:06.564Z\",\n    \"time_zone\": \"Etc/UTC\"\n  },\n  \"incidents\": [\n    {\n      \"id\": \"5pshx4ms4grv\",\n      \"name\": \"Issue impacting Yardi Voyager users in the Canada region\",\n      \"status\": \"resolved\",\n      \"impact\": \"major\",\n      \"page_id\": \"string\",\n      \"created_at\": \"1969-04-08T23:39:08.725Z\",\n      \"updated_at\": \"1997-07-06T06:04:18.328Z\",\n      \"started_at\": \"2010-06-01T21:59:25.824Z\",\n      \"monitoring_at\": \"1990-06-07T02:47:12.831Z\",\n      \"resolved_at\": \"1973-11-28T18:42:22.336Z\",\n      \"shortlink\": \"http://otGyqQg.wkhpjF,4LuOfgM2iw\",\n      \"reminder_intervals\": \"string\",\n      \"components\": [\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": true,\n          \"created_at\": \"2026-03-27T17:25:25.350Z\",\n          \"updated_at\": \"1978-06-20T23:35:54.816Z\",\n          \"position\": 9719,\n          \"description\": \"string\",\n          \"showcase\": true,\n          \"start_date\": \"1990-08-27\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": false,\n          \"created_at\": \"1995-11-25T05:18:11.789Z\",\n          \"updated_at\": \"2023-08-09T00:14:16.517Z\",\n          \"position\": 7041,\n          \"description\": \"string\",\n          \"showcase\": true,\n          \"start_date\": \"1953-03-12\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": true,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"incident_updates\": [\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1956-07-17T11:12:06.620Z\",\n          \"updated_at\": \"1964-07-12T10:40:16.436Z\",\n          \"display_at\": \"2010-10-12T05:00:46.011Z\",\n          \"deliver_notifications\": true,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1969-11-22T14:01:05.814Z\",\n          \"updated_at\": \"1967-11-21T09:56:34.673Z\",\n          \"display_at\": \"2009-11-15T08:12:16.744Z\",\n          \"deliver_notifications\": true,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": \"5pshx4ms4grv\",\n      \"name\": \"Issue impacting Yardi Voyager users in the Canada region\",\n      \"status\": \"resolved\",\n      \"impact\": \"major\",\n      \"page_id\": \"string\",\n      \"created_at\": \"1999-05-11T00:37:26.697Z\",\n      \"updated_at\": \"2015-08-24T22:23:53.067Z\",\n      \"started_at\": \"1996-03-09T08:19:40.974Z\",\n      \"monitoring_at\": \"2012-07-16T23:54:25.609Z\",\n      \"resolved_at\": \"2000-04-01T17:23:24.180Z\",\n      \"shortlink\": \"https://fFd.pcyrK1lc+5.JCGig\",\n      \"reminder_intervals\": \"string\",\n      \"components\": [\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": false,\n          \"created_at\": \"1969-04-12T10:25:37.125Z\",\n          \"updated_at\": \"1990-11-26T03:46:15.251Z\",\n          \"position\": 2019,\n          \"description\": \"string\",\n          \"showcase\": false,\n          \"start_date\": \"2024-11-24\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": false,\n          \"created_at\": \"1955-11-10T04:45:19.857Z\",\n          \"updated_at\": \"1987-06-10T12:25:35.329Z\",\n          \"position\": 7154,\n          \"description\": \"string\",\n          \"showcase\": false,\n          \"start_date\": \"1995-03-11\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": true,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"incident_updates\": [\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1988-04-11T01:21:35.253Z\",\n          \"updated_at\": \"1977-07-01T18:47:26.882Z\",\n          \"display_at\": \"1966-03-04T01:04:00.202Z\",\n          \"deliver_notifications\": true,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1995-03-17T05:03:28.387Z\",\n          \"updated_at\": \"1959-05-12T13:30:58.071Z\",\n          \"display_at\": \"1997-08-28T21:24:43.675Z\",\n          \"deliver_notifications\": false,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55f40ac6-d474-4472-8d80-79ca5e504570",
+          "name": "List unresolved incidents",
+          "request": {
+            "name": "List unresolved incidents",
+            "description": {
+              "content": "Returns only incidents that are not yet resolved. An empty array is the normal, healthy result.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "incidents",
+                "unresolved.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2fff098e-e921-4a23-a9e4-e9698a44a210",
+              "name": "Unresolved incident list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "incidents",
+                    "unresolved.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"id\": \"3cqj0pmpypxd\",\n    \"name\": \"Yardi Systems\",\n    \"url\": \"https://status.yardi.com\",\n    \"updated_at\": \"1989-02-09T23:42:06.564Z\",\n    \"time_zone\": \"Etc/UTC\"\n  },\n  \"incidents\": [\n    {\n      \"id\": \"5pshx4ms4grv\",\n      \"name\": \"Issue impacting Yardi Voyager users in the Canada region\",\n      \"status\": \"resolved\",\n      \"impact\": \"major\",\n      \"page_id\": \"string\",\n      \"created_at\": \"1969-04-08T23:39:08.725Z\",\n      \"updated_at\": \"1997-07-06T06:04:18.328Z\",\n      \"started_at\": \"2010-06-01T21:59:25.824Z\",\n      \"monitoring_at\": \"1990-06-07T02:47:12.831Z\",\n      \"resolved_at\": \"1973-11-28T18:42:22.336Z\",\n      \"shortlink\": \"http://otGyqQg.wkhpjF,4LuOfgM2iw\",\n      \"reminder_intervals\": \"string\",\n      \"components\": [\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": true,\n          \"created_at\": \"2026-03-27T17:25:25.350Z\",\n          \"updated_at\": \"1978-06-20T23:35:54.816Z\",\n          \"position\": 9719,\n          \"description\": \"string\",\n          \"showcase\": true,\n          \"start_date\": \"1990-08-27\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": false,\n          \"created_at\": \"1995-11-25T05:18:11.789Z\",\n          \"updated_at\": \"2023-08-09T00:14:16.517Z\",\n          \"position\": 7041,\n          \"description\": \"string\",\n          \"showcase\": true,\n          \"start_date\": \"1953-03-12\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": true,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"incident_updates\": [\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1956-07-17T11:12:06.620Z\",\n          \"updated_at\": \"1964-07-12T10:40:16.436Z\",\n          \"display_at\": \"2010-10-12T05:00:46.011Z\",\n          \"deliver_notifications\": true,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1969-11-22T14:01:05.814Z\",\n          \"updated_at\": \"1967-11-21T09:56:34.673Z\",\n          \"display_at\": \"2009-11-15T08:12:16.744Z\",\n          \"deliver_notifications\": true,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": \"5pshx4ms4grv\",\n      \"name\": \"Issue impacting Yardi Voyager users in the Canada region\",\n      \"status\": \"resolved\",\n      \"impact\": \"major\",\n      \"page_id\": \"string\",\n      \"created_at\": \"1999-05-11T00:37:26.697Z\",\n      \"updated_at\": \"2015-08-24T22:23:53.067Z\",\n      \"started_at\": \"1996-03-09T08:19:40.974Z\",\n      \"monitoring_at\": \"2012-07-16T23:54:25.609Z\",\n      \"resolved_at\": \"2000-04-01T17:23:24.180Z\",\n      \"shortlink\": \"https://fFd.pcyrK1lc+5.JCGig\",\n      \"reminder_intervals\": \"string\",\n      \"components\": [\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": false,\n          \"created_at\": \"1969-04-12T10:25:37.125Z\",\n          \"updated_at\": \"1990-11-26T03:46:15.251Z\",\n          \"position\": 2019,\n          \"description\": \"string\",\n          \"showcase\": false,\n          \"start_date\": \"2024-11-24\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": false,\n          \"created_at\": \"1955-11-10T04:45:19.857Z\",\n          \"updated_at\": \"1987-06-10T12:25:35.329Z\",\n          \"position\": 7154,\n          \"description\": \"string\",\n          \"showcase\": false,\n          \"start_date\": \"1995-03-11\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": true,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"incident_updates\": [\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1988-04-11T01:21:35.253Z\",\n          \"updated_at\": \"1977-07-01T18:47:26.882Z\",\n          \"display_at\": \"1966-03-04T01:04:00.202Z\",\n          \"deliver_notifications\": true,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1995-03-17T05:03:28.387Z\",\n          \"updated_at\": \"1959-05-12T13:30:58.071Z\",\n          \"display_at\": \"1997-08-28T21:24:43.675Z\",\n          \"deliver_notifications\": false,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1311c4ad-1169-4b38-987d-f36b3ccda45d",
+      "name": "Maintenance",
+      "description": {
+        "content": "Scheduled maintenance windows",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "301b04ee-07d2-4800-bdb7-5ff3947ae35b",
+          "name": "List recent and upcoming scheduled maintenances",
+          "request": {
+            "name": "List recent and upcoming scheduled maintenances",
+            "description": {
+              "content": "Returns the most recent scheduled maintenance windows (50 in the observed response), newest first. Regional windows are named explicitly, for example \"Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT\".",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scheduled-maintenances.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "00ab4e52-7db3-49b8-861c-92203ba24ea7",
+              "name": "Scheduled maintenance list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-maintenances.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"id\": \"3cqj0pmpypxd\",\n    \"name\": \"Yardi Systems\",\n    \"url\": \"https://status.yardi.com\",\n    \"updated_at\": \"2005-02-23T03:43:30.440Z\",\n    \"time_zone\": \"Etc/UTC\"\n  },\n  \"scheduled_maintenances\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT\",\n      \"status\": \"completed\",\n      \"impact\": \"string\",\n      \"page_id\": \"string\",\n      \"created_at\": \"1979-03-07T16:47:33.392Z\",\n      \"updated_at\": \"1959-01-04T14:35:32.189Z\",\n      \"started_at\": \"2025-04-15T07:06:30.560Z\",\n      \"monitoring_at\": \"1989-12-20T03:12:56.758Z\",\n      \"resolved_at\": \"1953-08-16T10:52:32.281Z\",\n      \"scheduled_for\": \"1990-03-26T07:51:31.140Z\",\n      \"scheduled_until\": \"1973-12-29T13:57:49.592Z\",\n      \"shortlink\": \"https://WqjbZWmPFvFg.ymqwqvLsvVzM-zwcfYmPDmb\",\n      \"components\": [\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": false,\n          \"created_at\": \"2019-11-06T07:17:09.600Z\",\n          \"updated_at\": \"2009-06-20T14:40:12.937Z\",\n          \"position\": 3823,\n          \"description\": \"string\",\n          \"showcase\": true,\n          \"start_date\": \"1963-10-13\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": true,\n          \"created_at\": \"1976-11-04T05:44:57.121Z\",\n          \"updated_at\": \"1978-10-28T18:53:25.419Z\",\n          \"position\": 3745,\n          \"description\": \"string\",\n          \"showcase\": true,\n          \"start_date\": \"2005-06-05\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"incident_updates\": [\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1962-03-24T09:03:12.863Z\",\n          \"updated_at\": \"1972-12-13T02:29:10.677Z\",\n          \"display_at\": \"1992-08-05T19:41:57.703Z\",\n          \"deliver_notifications\": false,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1984-12-27T20:09:30.152Z\",\n          \"updated_at\": \"1958-05-16T10:49:45.508Z\",\n          \"display_at\": \"1956-08-24T10:12:01.963Z\",\n          \"deliver_notifications\": true,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT\",\n      \"status\": \"completed\",\n      \"impact\": \"string\",\n      \"page_id\": \"string\",\n      \"created_at\": \"1978-03-17T10:44:56.048Z\",\n      \"updated_at\": \"2015-02-17T02:39:13.482Z\",\n      \"started_at\": \"1981-09-06T21:59:40.863Z\",\n      \"monitoring_at\": \"1980-11-16T19:40:17.529Z\",\n      \"resolved_at\": \"1998-10-16T23:39:14.420Z\",\n      \"scheduled_for\": \"1987-11-30T05:37:27.868Z\",\n      \"scheduled_until\": \"1987-01-23T05:57:01.042Z\",\n      \"shortlink\": \"https://RRcEmZggqzNLlOemd.kvyIK5FgGc1aib,tXHcn,,dWn5XCppSVnMexDo2maoDHTGZPfG8,nzKLuKKkdKmg7nsTO7YqiS\",\n      \"components\": [\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": true,\n          \"created_at\": \"1956-04-06T06:50:08.003Z\",\n          \"updated_at\": \"1969-06-26T01:31:03.493Z\",\n          \"position\": 2812,\n          \"description\": \"string\",\n          \"showcase\": false,\n          \"start_date\": \"2016-08-25\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": true,\n          \"created_at\": \"1981-07-24T07:41:27.210Z\",\n          \"updated_at\": \"2021-02-11T20:20:45.964Z\",\n          \"position\": 2214,\n          \"description\": \"string\",\n          \"showcase\": false,\n          \"start_date\": \"2010-01-04\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"incident_updates\": [\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1998-07-12T06:32:35.752Z\",\n          \"updated_at\": \"2020-08-22T02:08:16.120Z\",\n          \"display_at\": \"2012-02-24T10:58:25.942Z\",\n          \"deliver_notifications\": false,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1984-07-26T14:56:29.413Z\",\n          \"updated_at\": \"1993-03-11T16:54:18.809Z\",\n          \"display_at\": \"2013-09-02T06:43:05.448Z\",\n          \"deliver_notifications\": true,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42b29707-625f-4ed2-8010-a8143ff28fc2",
+          "name": "List upcoming scheduled maintenances",
+          "request": {
+            "name": "List upcoming scheduled maintenances",
+            "description": {
+              "content": "Returns only maintenance windows scheduled in the future.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scheduled-maintenances",
+                "upcoming.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "24cea7b8-0b9b-423f-b9f5-eb5ff86615c7",
+              "name": "Upcoming scheduled maintenance list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-maintenances",
+                    "upcoming.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"id\": \"3cqj0pmpypxd\",\n    \"name\": \"Yardi Systems\",\n    \"url\": \"https://status.yardi.com\",\n    \"updated_at\": \"2005-02-23T03:43:30.440Z\",\n    \"time_zone\": \"Etc/UTC\"\n  },\n  \"scheduled_maintenances\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT\",\n      \"status\": \"completed\",\n      \"impact\": \"string\",\n      \"page_id\": \"string\",\n      \"created_at\": \"1979-03-07T16:47:33.392Z\",\n      \"updated_at\": \"1959-01-04T14:35:32.189Z\",\n      \"started_at\": \"2025-04-15T07:06:30.560Z\",\n      \"monitoring_at\": \"1989-12-20T03:12:56.758Z\",\n      \"resolved_at\": \"1953-08-16T10:52:32.281Z\",\n      \"scheduled_for\": \"1990-03-26T07:51:31.140Z\",\n      \"scheduled_until\": \"1973-12-29T13:57:49.592Z\",\n      \"shortlink\": \"https://WqjbZWmPFvFg.ymqwqvLsvVzM-zwcfYmPDmb\",\n      \"components\": [\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": false,\n          \"created_at\": \"2019-11-06T07:17:09.600Z\",\n          \"updated_at\": \"2009-06-20T14:40:12.937Z\",\n          \"position\": 3823,\n          \"description\": \"string\",\n          \"showcase\": true,\n          \"start_date\": \"1963-10-13\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": true,\n          \"created_at\": \"1976-11-04T05:44:57.121Z\",\n          \"updated_at\": \"1978-10-28T18:53:25.419Z\",\n          \"position\": 3745,\n          \"description\": \"string\",\n          \"showcase\": true,\n          \"start_date\": \"2005-06-05\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"incident_updates\": [\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1962-03-24T09:03:12.863Z\",\n          \"updated_at\": \"1972-12-13T02:29:10.677Z\",\n          \"display_at\": \"1992-08-05T19:41:57.703Z\",\n          \"deliver_notifications\": false,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1984-12-27T20:09:30.152Z\",\n          \"updated_at\": \"1958-05-16T10:49:45.508Z\",\n          \"display_at\": \"1956-08-24T10:12:01.963Z\",\n          \"deliver_notifications\": true,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT\",\n      \"status\": \"completed\",\n      \"impact\": \"string\",\n      \"page_id\": \"string\",\n      \"created_at\": \"1978-03-17T10:44:56.048Z\",\n      \"updated_at\": \"2015-02-17T02:39:13.482Z\",\n      \"started_at\": \"1981-09-06T21:59:40.863Z\",\n      \"monitoring_at\": \"1980-11-16T19:40:17.529Z\",\n      \"resolved_at\": \"1998-10-16T23:39:14.420Z\",\n      \"scheduled_for\": \"1987-11-30T05:37:27.868Z\",\n      \"scheduled_until\": \"1987-01-23T05:57:01.042Z\",\n      \"shortlink\": \"https://RRcEmZggqzNLlOemd.kvyIK5FgGc1aib,tXHcn,,dWn5XCppSVnMexDo2maoDHTGZPfG8,nzKLuKKkdKmg7nsTO7YqiS\",\n      \"components\": [\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": true,\n          \"created_at\": \"1956-04-06T06:50:08.003Z\",\n          \"updated_at\": \"1969-06-26T01:31:03.493Z\",\n          \"position\": 2812,\n          \"description\": \"string\",\n          \"showcase\": false,\n          \"start_date\": \"2016-08-25\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": true,\n          \"created_at\": \"1981-07-24T07:41:27.210Z\",\n          \"updated_at\": \"2021-02-11T20:20:45.964Z\",\n          \"position\": 2214,\n          \"description\": \"string\",\n          \"showcase\": false,\n          \"start_date\": \"2010-01-04\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"incident_updates\": [\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1998-07-12T06:32:35.752Z\",\n          \"updated_at\": \"2020-08-22T02:08:16.120Z\",\n          \"display_at\": \"2012-02-24T10:58:25.942Z\",\n          \"deliver_notifications\": false,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1984-07-26T14:56:29.413Z\",\n          \"updated_at\": \"1993-03-11T16:54:18.809Z\",\n          \"display_at\": \"2013-09-02T06:43:05.448Z\",\n          \"deliver_notifications\": true,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d285bfed-cb56-4490-a025-e43498f1e34b",
+          "name": "List in-progress scheduled maintenances",
+          "request": {
+            "name": "List in-progress scheduled maintenances",
+            "description": {
+              "content": "Returns only maintenance windows currently in progress.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scheduled-maintenances",
+                "active.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bf33ab48-d104-45fb-acba-6504156d84b6",
+              "name": "Active scheduled maintenance list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scheduled-maintenances",
+                    "active.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"id\": \"3cqj0pmpypxd\",\n    \"name\": \"Yardi Systems\",\n    \"url\": \"https://status.yardi.com\",\n    \"updated_at\": \"2005-02-23T03:43:30.440Z\",\n    \"time_zone\": \"Etc/UTC\"\n  },\n  \"scheduled_maintenances\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT\",\n      \"status\": \"completed\",\n      \"impact\": \"string\",\n      \"page_id\": \"string\",\n      \"created_at\": \"1979-03-07T16:47:33.392Z\",\n      \"updated_at\": \"1959-01-04T14:35:32.189Z\",\n      \"started_at\": \"2025-04-15T07:06:30.560Z\",\n      \"monitoring_at\": \"1989-12-20T03:12:56.758Z\",\n      \"resolved_at\": \"1953-08-16T10:52:32.281Z\",\n      \"scheduled_for\": \"1990-03-26T07:51:31.140Z\",\n      \"scheduled_until\": \"1973-12-29T13:57:49.592Z\",\n      \"shortlink\": \"https://WqjbZWmPFvFg.ymqwqvLsvVzM-zwcfYmPDmb\",\n      \"components\": [\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": false,\n          \"created_at\": \"2019-11-06T07:17:09.600Z\",\n          \"updated_at\": \"2009-06-20T14:40:12.937Z\",\n          \"position\": 3823,\n          \"description\": \"string\",\n          \"showcase\": true,\n          \"start_date\": \"1963-10-13\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": true,\n          \"created_at\": \"1976-11-04T05:44:57.121Z\",\n          \"updated_at\": \"1978-10-28T18:53:25.419Z\",\n          \"position\": 3745,\n          \"description\": \"string\",\n          \"showcase\": true,\n          \"start_date\": \"2005-06-05\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"incident_updates\": [\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1962-03-24T09:03:12.863Z\",\n          \"updated_at\": \"1972-12-13T02:29:10.677Z\",\n          \"display_at\": \"1992-08-05T19:41:57.703Z\",\n          \"deliver_notifications\": false,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1984-12-27T20:09:30.152Z\",\n          \"updated_at\": \"1958-05-16T10:49:45.508Z\",\n          \"display_at\": \"1956-08-24T10:12:01.963Z\",\n          \"deliver_notifications\": true,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT\",\n      \"status\": \"completed\",\n      \"impact\": \"string\",\n      \"page_id\": \"string\",\n      \"created_at\": \"1978-03-17T10:44:56.048Z\",\n      \"updated_at\": \"2015-02-17T02:39:13.482Z\",\n      \"started_at\": \"1981-09-06T21:59:40.863Z\",\n      \"monitoring_at\": \"1980-11-16T19:40:17.529Z\",\n      \"resolved_at\": \"1998-10-16T23:39:14.420Z\",\n      \"scheduled_for\": \"1987-11-30T05:37:27.868Z\",\n      \"scheduled_until\": \"1987-01-23T05:57:01.042Z\",\n      \"shortlink\": \"https://RRcEmZggqzNLlOemd.kvyIK5FgGc1aib,tXHcn,,dWn5XCppSVnMexDo2maoDHTGZPfG8,nzKLuKKkdKmg7nsTO7YqiS\",\n      \"components\": [\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": true,\n          \"created_at\": \"1956-04-06T06:50:08.003Z\",\n          \"updated_at\": \"1969-06-26T01:31:03.493Z\",\n          \"position\": 2812,\n          \"description\": \"string\",\n          \"showcase\": false,\n          \"start_date\": \"2016-08-25\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"m5cxlbn41qsg\",\n          \"name\": \"Canada\",\n          \"status\": \"operational\",\n          \"page_id\": \"string\",\n          \"group\": true,\n          \"created_at\": \"1981-07-24T07:41:27.210Z\",\n          \"updated_at\": \"2021-02-11T20:20:45.964Z\",\n          \"position\": 2214,\n          \"description\": \"string\",\n          \"showcase\": false,\n          \"start_date\": \"2010-01-04\",\n          \"group_id\": \"string\",\n          \"only_show_if_degraded\": false,\n          \"components\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"incident_updates\": [\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1998-07-12T06:32:35.752Z\",\n          \"updated_at\": \"2020-08-22T02:08:16.120Z\",\n          \"display_at\": \"2012-02-24T10:58:25.942Z\",\n          \"deliver_notifications\": false,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"status\": \"string\",\n          \"body\": \"string\",\n          \"incident_id\": \"string\",\n          \"created_at\": \"1984-07-26T14:56:29.413Z\",\n          \"updated_at\": \"1993-03-11T16:54:18.809Z\",\n          \"display_at\": \"2013-09-02T06:43:05.448Z\",\n          \"deliver_notifications\": true,\n          \"custom_tweet\": \"string\",\n          \"tweet_id\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://status.yardi.com/api/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ffe8b797-aa18-4f51-8e19-664300707c89",
+    "name": "Yardi Systems Status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The only publicly callable, machine-readable API surface Yardi serves anonymously. It is the Atlassian Statuspage v2 REST API hosted on Yardi's own status host (page id `3cqj0pmpypxd`, page name \"Yardi Systems\"), and Yardi publishes the endpoint list itself at https://status.yardi.com/api. The page carries 134 components in 16 groups — Voyager7s, Voyager8, Breeze, RentCafe, RentCafe ANZ, RentCafe UK, RentCafe Middle East, CommercialCafe, Elevate, Investor Portal, Kube, Payment Processing, Relief Suite, Resident Screening, VendorCafe and Yardi EHR Interfaces — several of which expose an explicit `Canada` component (Voyager7s/Canada, Voyager8/Canada, Breeze/Canada, Elevate/Canada, Investor Portal/Canada, Resident Screening/Canada, Yardi EHR Interfaces/Canada). That is the machine-readable seam a Yardi Canada integrator can actually poll.\nThis document was DERIVED, not published by Yardi: every path, method and response shape below was confirmed against Yardi's own published endpoint list and against live 200 responses fetched on 2026-07-26. No endpoint, parameter or field is asserted here that was not observed. Yardi publishes no OpenAPI of its own for this or any other interface.\n\nContact Support:\n Name: Yardi technical support",
+      "type": "text/plain"
+    }
+  }
+}

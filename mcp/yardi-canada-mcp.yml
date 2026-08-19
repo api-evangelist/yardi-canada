@@ -3,56 +3,49 @@ method: searched
 status: published
 source: https://claude.com/connectors/yardi-virtuoso
 sources:
-  - https://claude.com/connectors/yardi-virtuoso
-  - https://www.yardi.com/news/press-releases/yardi-adds-virtuoso-connector-for-claude-to-its-ai-platform/
-  - https://www.yardi.com/news/press-releases/yardi-announces-first-property-management-connector-anthropic-claude/
-  - https://mcp.virtuoso.ai/.well-known/oauth-protected-resource
-  - https://mcp.virtuoso.ai/.well-known/oauth-authorization-server
-summary: >-
-  Yardi ships a real, first-party, hosted MCP server — the Yardi Virtuoso Connector —
-  and it is the single most important correction to the earlier reading of this
-  provider. Yardi publishes no OpenAPI, no developer portal and no self-serve REST
-  surface, yet it has an agent-facing contract listed on the Anthropic connector
-  directory and an anonymous, machine-readable OAuth discovery surface on
-  mcp.virtuoso.ai. For Yardi the agent interface, not the web API, is the public
-  integration story. Yardi's own claim in the June 2026 release is that it is "the
-  only property management software provider in the real estate industry with an MCP
-  connector available on the Anthropic marketplace." Yardi Canada Ltd. clients reach
-  it through the same Virtuoso Enterprise platform; access follows existing Yardi
-  user permissions, so a Canadian tenancy's data stays inside that tenancy's controls.
+- https://claude.com/connectors/yardi-virtuoso
+- https://www.yardi.com/news/press-releases/yardi-adds-virtuoso-connector-for-claude-to-its-ai-platform/
+- https://www.yardi.com/news/press-releases/yardi-announces-first-property-management-connector-anthropic-claude/
+- https://mcp.virtuoso.ai/.well-known/oauth-protected-resource
+- https://mcp.virtuoso.ai/.well-known/oauth-authorization-server
+summary: Yardi ships a real, first-party, hosted MCP server — the Yardi Virtuoso Connector — and it is
+  the single most important correction to the earlier reading of this provider. Yardi publishes no OpenAPI,
+  no developer portal and no self-serve REST surface, yet it has an agent-facing contract listed on the
+  Anthropic connector directory and an anonymous, machine-readable OAuth discovery surface on mcp.virtuoso.ai.
+  For Yardi the agent interface, not the web API, is the public integration story. Yardi's own claim in
+  the June 2026 release is that it is "the only property management software provider in the real estate
+  industry with an MCP connector available on the Anthropic marketplace." Yardi Canada Ltd. clients reach
+  it through the same Virtuoso Enterprise platform; access follows existing Yardi user permissions, so
+  a Canadian tenancy's data stays inside that tenancy's controls.
 server:
   name: Yardi Virtuoso
   publisher: Yardi Systems, LLC
   transport: http
   url: https://mcp.virtuoso.ai
   endpoint_path_confirmed: false
-  endpoint_note: >-
-    The resource identifier https://mcp.virtuoso.ai is taken verbatim from the host's
-    own RFC 9728 protected-resource metadata. The concrete JSON-RPC path (/mcp, /sse
-    or other) could not be confirmed: every anonymous POST to mcp.virtuoso.ai was
-    answered by the Cloudflare bot layer with an HTML 403, not by the MCP server, so
-    the transport path is asserted only as far as the metadata proves it.
+  endpoint_note: 'The resource identifier https://mcp.virtuoso.ai is taken verbatim from the host''s own
+    RFC 9728 protected-resource metadata. The concrete JSON-RPC path (/mcp, /sse or other) could not be
+    confirmed: every anonymous POST to mcp.virtuoso.ai was answered by the Cloudflare bot layer with an
+    HTML 403, not by the MCP server, so the transport path is asserted only as far as the metadata proves
+    it.'
   directory_listing: https://claude.com/connectors/yardi-virtuoso
   category: Financial services
   capability_type: Read & Write
   supported_clients:
-    - Claude (web)
-    - Claude desktop app
-    - Claude mobile app
-    - Claude Code
-    - Claude API
+  - Claude (web)
+  - Claude desktop app
+  - Claude mobile app
+  - Claude Code
+  - Claude API
   documentation: https://help.virtuoso.ai/en/articles/13679727-yardi-virtuoso-mcp-technical-documentation-guide
-  documentation_access: >-
-    Gated. The Virtuoso help-centre article named as the connector's technical
-    documentation returns HTTP 401 to an anonymous client and renders "Unable to load
-    this article, you may need to sign in first". The MCP technical guide is
-    customer-only, which is consistent with the rest of Yardi's integration material.
+  documentation_access: Gated. The Virtuoso help-centre article named as the connector's technical documentation
+    returns HTTP 401 to an anonymous client and renders "Unable to load this article, you may need to
+    sign in first". The MCP technical guide is customer-only, which is consistent with the rest of Yardi's
+    integration material.
   announced: '2025-09-10'
   general_availability_announced: '2026-06-16'
-  early_access_note: >-
-    Announced 2025-09-10 as early access with Claude support; the 2026-06-16 release
-    describes it as available now as part of Virtuoso Enterprise, with additional LLM
-    support to follow.
+  early_access_note: Announced 2025-09-10 as early access with Claude support; the 2026-06-16 release
+    describes it as available now as part of Virtuoso Enterprise, with additional LLM support to follow.
 authorization:
   model: OAuth 2.1 authorization code with PKCE, per the MCP authorization spec
   issuer: https://mcp.virtuoso.ai
@@ -60,59 +53,68 @@ authorization:
   token_endpoint: https://mcp.virtuoso.ai/oauth/token
   registration_endpoint: https://mcp.virtuoso.ai/oauth/register
   dynamic_client_registration: true
-  scopes_supported: [openid, profile, email, offline_access]
-  code_challenge_methods_supported: [S256]
-  grant_types_supported: [authorization_code, refresh_token]
-  bearer_methods_supported: [header]
-  permission_model: >-
-    "The Virtuoso Connector authenticates through Yardi, so data access automatically
-    follows existing user permissions" (Yardi press release, 2026-06-16). The OAuth
-    scopes above are identity scopes only — the actual data authorization is the
-    caller's Yardi role, not an MCP scope.
+  scopes_supported:
+  - openid
+  - profile
+  - email
+  - offline_access
+  code_challenge_methods_supported:
+  - S256
+  grant_types_supported:
+  - authorization_code
+  - refresh_token
+  bearer_methods_supported:
+  - header
+  permission_model: '"The Virtuoso Connector authenticates through Yardi, so data access automatically
+    follows existing user permissions" (Yardi press release, 2026-06-16). The OAuth scopes above are identity
+    scopes only — the actual data authorization is the caller''s Yardi role, not an MCP scope.'
   artifacts:
-    - well-known/yardi-canada-oauth-protected-resource.json
-    - well-known/yardi-canada-oauth-authorization-server.json
+  - well-known/yardi-canada-oauth-protected-resource.json
+  - well-known/yardi-canada-oauth-authorization-server.json
 tools:
   introspected: false
-  introspection_result: >-
-    tools/list could not be called anonymously. POST to https://mcp.virtuoso.ai/mcp,
-    /sse, /v1/mcp, /api/mcp, /mcp/v1 and / each returned an HTML 403 from Cloudflare
-    (not an OAuth challenge and not a JSON-RPC error), so no tool names, descriptions
-    or inputSchemas were obtained. Nothing below is a tool name — no tool list is
-    asserted, because none was observed. Authenticated introspection by a Virtuoso
-    Enterprise customer is the only way to capture the real schemas.
+  introspection_result: tools/list could not be called anonymously. POST to https://mcp.virtuoso.ai/mcp,
+    /sse, /v1/mcp, /api/mcp, /mcp/v1 and / each returned an HTML 403 from Cloudflare (not an OAuth challenge
+    and not a JSON-RPC error), so no tool names, descriptions or inputSchemas were obtained. Nothing below
+    is a tool name — no tool list is asserted, because none was observed. Authenticated introspection
+    by a Virtuoso Enterprise customer is the only way to capture the real schemas.
 capabilities:
-  - id: portfolio-performance
-    description: Portfolio performance analysis across properties and markets.
-    source: https://claude.com/connectors/yardi-virtuoso
-  - id: financial-data
-    description: Financial data access, including Net Operating Income comparisons.
-    source: https://claude.com/connectors/yardi-virtuoso
-  - id: work-orders
-    description: Work order management and tracking.
-    source: https://claude.com/connectors/yardi-virtuoso
-  - id: invoice-approval
-    description: Invoice review and approval workflows.
-    source: https://claude.com/connectors/yardi-virtuoso
-  - id: quarterly-business-review
-    description: Quarterly business review support.
-    source: https://claude.com/connectors/yardi-virtuoso
-  - id: budget-forecasting
-    description: >-
-      Budget forecasting and scenario questions such as "Which buildings are likely to
-      exceed budget next quarter?", plus market-aware portfolio analysis, risk
-      assessment and renter trends.
-    source: https://www.yardi.com/news/press-releases/yardi-announces-first-property-management-connector-anthropic-claude/
+- id: portfolio-performance
+  description: Portfolio performance analysis across properties and markets.
+  source: https://claude.com/connectors/yardi-virtuoso
+- id: financial-data
+  description: Financial data access, including Net Operating Income comparisons.
+  source: https://claude.com/connectors/yardi-virtuoso
+- id: work-orders
+  description: Work order management and tracking.
+  source: https://claude.com/connectors/yardi-virtuoso
+- id: invoice-approval
+  description: Invoice review and approval workflows.
+  source: https://claude.com/connectors/yardi-virtuoso
+- id: quarterly-business-review
+  description: Quarterly business review support.
+  source: https://claude.com/connectors/yardi-virtuoso
+- id: budget-forecasting
+  description: Budget forecasting and scenario questions such as "Which buildings are likely to exceed
+    budget next quarter?", plus market-aware portfolio analysis, risk assessment and renter trends.
+  source: https://www.yardi.com/news/press-releases/yardi-announces-first-property-management-connector-anthropic-claude/
 prerequisites:
-  - Virtuoso Enterprise (Yardi's AI platform) must be licensed and configured.
-  - Access requires existing Yardi platform configuration and its security governance controls.
-  - No self-serve or trial path; this is not open to a developer without a Yardi tenancy.
+- Virtuoso Enterprise (Yardi's AI platform) must be licensed and configured.
+- Access requires existing Yardi platform configuration and its security governance controls.
+- No self-serve or trial path; this is not open to a developer without a Yardi tenancy.
 registry:
   official_mcp_registry: not listed
-  official_mcp_registry_probe: >-
-    registry.modelcontextprotocol.io/v0/servers?search=yardi and ?search=virtuoso both
-    returned {"servers":[],"metadata":{"count":0}} on 2026-07-26.
+  official_mcp_registry_probe: registry.modelcontextprotocol.io/v0/servers?search=yardi and ?search=virtuoso
+    both returned {"servers":[],"metadata":{"count":0}} on 2026-07-26.
 not_found:
-  - No npm, PyPI or other package-registry distribution of a Yardi MCP server.
-  - No stdio/self-hosted server published by Yardi.
-  - Third-party directories describe Yardi MCP tool names; none of those are first-party and none are recorded here.
+- No npm, PyPI or other package-registry distribution of a Yardi MCP server.
+- No stdio/self-hosted server published by Yardi.
+- Third-party directories describe Yardi MCP tool names; none of those are first-party and none are recorded
+  here.
+deployment:
+  mode: remote
+  endpoint: https://mcp.virtuoso.ai
+  verified: probed
+  probe: wall
+  checked: '2026-08-12'
+  source: catalog MCP census
