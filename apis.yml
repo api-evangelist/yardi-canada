@@ -36,6 +36,21 @@ description: >-
   machine-readable signal of Yardi Canada's production service health.
 image: https://www.yardi.com/wp-content/themes/cmw-standard-v2-theme/images/icons/apple-touch-icon-152x152.png
 tags:
+- Real-Estate
+- Canada
+- Property Management
+- Rentals
+- Commercial Real Estate
+- PropTech
+- Multifamily
+- Affordable Housing
+- Senior Living
+- Investment Management
+- Tenancy
+- Payments
+- MCP
+- Artificial Intelligence
+tags_raw:
 - Real Estate
 - Canada
 - Property Management
@@ -143,6 +158,14 @@ apis:
   humanURL: https://claude.com/connectors/yardi-virtuoso
   baseURL: https://mcp.virtuoso.ai
   tags:
+  - MCP
+  - Artificial Intelligence
+  - Agents
+  - Property Management
+  - Investment Management
+  - Maintenance
+  - Accounting
+  tags_raw:
   - MCP
   - AI
   - Agents
