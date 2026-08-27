@@ -84,7 +84,13 @@ apis:
     Interface Partnership Program and execution of a Data Exchange Agreement for each
     interface type, and only to companies at least two years old with three or more
     active Voyager clients, against an annual per-interface fee.
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+  imageNote: >-
+    The `image` property was removed on 2026-08-26. It had been copied verbatim out of a
+    bootstrap template and pointed at an icon belonging to groq, not to this company.
+    That asset returns HTTP 200, so the record rendered another company's brand
+    rather than a broken image, which is why it went unreported (roadmap#153).
+    No correct icon has been sourced yet. Shipping the wrong company's mark is worse
+    than shipping none; re-run the icon backfill once a real asset exists.
   humanURL: https://www.yardi.com/services/interfaces/standard-interface-options/
   tags:
   - Property Management
@@ -116,7 +122,13 @@ apis:
     only as an access token, and the vendor may not pass Common Client Data to third
     parties. No base URL, reference documentation, OpenAPI document or self-serve
     signup is published; https://www.rentcafe.com/api/ no longer serves documentation.
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+  imageNote: >-
+    The `image` property was removed on 2026-08-26. It had been copied verbatim out of a
+    bootstrap template and pointed at an icon belonging to groq, not to this company.
+    That asset returns HTTP 200, so the record rendered another company's brand
+    rather than a broken image, which is why it went unreported (roadmap#153).
+    No correct icon has been sourced yet. Shipping the wrong company's mark is worse
+    than shipping none; re-run the icon backfill once a real asset exists.
   humanURL: https://resources.yardi.com/legal/rc-api-tou/
   tags:
   - Multifamily
