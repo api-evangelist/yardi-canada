@@ -72,25 +72,22 @@ apis:
 - aid: yardi-canada:yardi-voyager-standard-interfaces
   name: Yardi Voyager Standard Interfaces
   description: >-
-    The documented family of Voyager web-service interfaces that Yardi Canada clients
-    and their vendors integrate against — Collections, Commercial, Construction,
-    Internet Listing Service (ILS) and Guest Card, Maintenance, Master Data, Payables,
-    Receivables, Renters Insurance, Revenue, Screening, and Senior Living EHR/eMAR.
-    Several are described by Yardi as MITS-based or MITS-compliant; the Commercial
-    interface is described as built on the OSCRE standard. The contracting party is
-    Yardi Systems, Inc.; Yardi Canada Ltd. is the Canadian delivery and support
-    entity. No base URL, endpoint list, WSDL, OpenAPI or OData $metadata document is
-    published anywhere public — access is granted only after acceptance into the
-    Interface Partnership Program and execution of a Data Exchange Agreement for each
-    interface type, and only to companies at least two years old with three or more
-    active Voyager clients, against an annual per-interface fee.
+    The documented family of Voyager web-service interfaces that Yardi Canada clients and their vendors
+    integrate against — Collections, Commercial, Construction, Internet Listing Service (ILS) and Guest
+    Card, Maintenance, Master Data, Payables, Receivables, Renters Insurance, Revenue, Screening, and
+    Senior Living EHR/eMAR. Several are described by Yardi as MITS-based or MITS-compliant; the Commercial
+    interface is described as built on the OSCRE standard. The contracting party is Yardi Systems, Inc.;
+    Yardi Canada Ltd. is the Canadian delivery and support entity. No base URL, endpoint list, WSDL, OpenAPI
+    or OData $metadata document is published anywhere public — access is granted only after acceptance
+    into the Interface Partnership Program and execution of a Data Exchange Agreement for each interface
+    type, and only to companies at least two years old with three or more active Voyager clients, against
+    an annual per-interface fee.
   imageNote: >-
-    The `image` property was removed on 2026-08-26. It had been copied verbatim out of a
-    bootstrap template and pointed at an icon belonging to groq, not to this company.
-    That asset returns HTTP 200, so the record rendered another company's brand
-    rather than a broken image, which is why it went unreported (roadmap#153).
-    No correct icon has been sourced yet. Shipping the wrong company's mark is worse
-    than shipping none; re-run the icon backfill once a real asset exists.
+    The `image` property was removed on 2026-08-26. It had been copied verbatim out of a bootstrap template
+    and pointed at an icon belonging to groq, not to this company. That asset returns HTTP 200, so the
+    record rendered another company's brand rather than a broken image, which is why it went unreported
+    (roadmap#153). No correct icon has been sourced yet. Shipping the wrong company's mark is worse than
+    shipping none; re-run the icon backfill once a real asset exists.
   humanURL: https://www.yardi.com/services/interfaces/standard-interface-options/
   tags:
   - Property Management
@@ -111,24 +108,21 @@ apis:
 - aid: yardi-canada:rentcafe-api
   name: RentCafe API
   description: >-
-    The RentCafe marketing, leasing and resident-services API, used by Yardi Canada's
-    multifamily clients and their vendors. Yardi's published RentCafe API Terms of Use
-    names concrete operations in its Schedule A — getapartmentavailability,
-    getfloorplans, getunitpricingdetails, getpropertydetails, getamenities,
-    getofficehours, createlead, getavailableslots and createappointment — and states
-    that use "is by way of that certain RentCafe API Access Agreement between you and
-    Yardi Systems, Inc." Access is restricted to vendors serving "Common Clients"
-    (entities that are clients of both Yardi and the vendor), credentials are described
-    only as an access token, and the vendor may not pass Common Client Data to third
-    parties. No base URL, reference documentation, OpenAPI document or self-serve
-    signup is published; https://www.rentcafe.com/api/ no longer serves documentation.
+    The RentCafe marketing, leasing and resident-services API, used by Yardi Canada's multifamily clients
+    and their vendors. Yardi's published RentCafe API Terms of Use names concrete operations in its Schedule
+    A — getapartmentavailability, getfloorplans, getunitpricingdetails, getpropertydetails, getamenities,
+    getofficehours, createlead, getavailableslots and createappointment — and states that use "is by way
+    of that certain RentCafe API Access Agreement between you and Yardi Systems, Inc." Access is restricted
+    to vendors serving "Common Clients" (entities that are clients of both Yardi and the vendor), credentials
+    are described only as an access token, and the vendor may not pass Common Client Data to third parties.
+    No base URL, reference documentation, OpenAPI document or self-serve signup is published; https://www.rentcafe.com/api/
+    no longer serves documentation.
   imageNote: >-
-    The `image` property was removed on 2026-08-26. It had been copied verbatim out of a
-    bootstrap template and pointed at an icon belonging to groq, not to this company.
-    That asset returns HTTP 200, so the record rendered another company's brand
-    rather than a broken image, which is why it went unreported (roadmap#153).
-    No correct icon has been sourced yet. Shipping the wrong company's mark is worse
-    than shipping none; re-run the icon backfill once a real asset exists.
+    The `image` property was removed on 2026-08-26. It had been copied verbatim out of a bootstrap template
+    and pointed at an icon belonging to groq, not to this company. That asset returns HTTP 200, so the
+    record rendered another company's brand rather than a broken image, which is why it went unreported
+    (roadmap#153). No correct icon has been sourced yet. Shipping the wrong company's mark is worse than
+    shipping none; re-run the icon backfill once a real asset exists.
   humanURL: https://resources.yardi.com/legal/rc-api-tou/
   tags:
   - Multifamily
@@ -147,26 +141,23 @@ apis:
 - aid: yardi-canada:yardi-virtuoso-connector-mcp
   name: Yardi Virtuoso Connector (MCP)
   description: >-
-    Yardi's first-party Model Context Protocol server, announced in early access on
-    2025-09-10 and described as available now in Virtuoso Enterprise on 2026-06-16.
-    Listed on the Anthropic connector directory as Read & Write in the Financial
-    services category, supported across Claude web, desktop, mobile, Claude Code and
-    the Claude API. Published capabilities are portfolio performance analysis across
-    properties and markets, financial data including Net Operating Income comparisons,
-    work order management and tracking, invoice review and approval workflows,
-    quarterly business review support, and budget forecasting. Authorization is real
-    and anonymously discoverable — RFC 9728 protected-resource metadata and RFC 8414
-    authorization-server metadata on mcp.virtuoso.ai publish an OAuth 2.1
-    authorization-code flow with PKCE S256, refresh tokens and dynamic client
-    registration, with the scopes openid, profile, email and offline_access. Those
-    scopes carry identity only: Yardi states data access follows the caller's existing
-    Yardi user permissions, so a Yardi Canada client's tenancy roles are the real
-    boundary. The tool list is not anonymously introspectable — every unauthenticated
-    JSON-RPC POST is answered with an HTML 403 by Cloudflare — and the connector's
-    technical documentation returns HTTP 401, so no tool names or input schemas are
-    asserted in this profile. Access requires a licensed, configured Virtuoso
+    Yardi's first-party Model Context Protocol server, announced in early access on 2025-09-10 and described
+    as available now in Virtuoso Enterprise on 2026-06-16. Listed on the Anthropic connector directory
+    as Read & Write in the Financial services category, supported across Claude web, desktop, mobile,
+    Claude Code and the Claude API. Published capabilities are portfolio performance analysis across properties
+    and markets, financial data including Net Operating Income comparisons, work order management and
+    tracking, invoice review and approval workflows, quarterly business review support, and budget forecasting.
+    Authorization is real and anonymously discoverable — RFC 9728 protected-resource metadata and RFC
+    8414 authorization-server metadata on mcp.virtuoso.ai publish an OAuth 2.1 authorization-code flow
+    with PKCE S256, refresh tokens and dynamic client registration, with the scopes openid, profile, email
+    and offline_access. Those scopes carry identity only: Yardi states data access follows the caller's
+    existing Yardi user permissions, so a Yardi Canada client's tenancy roles are the real boundary. The
+    tool list is not anonymously introspectable — every unauthenticated JSON-RPC POST is answered with
+    an HTML 403 by Cloudflare — and the connector's technical documentation returns HTTP 401, so no tool
+    names or input schemas are asserted in this profile. Access requires a licensed, configured Virtuoso
     Enterprise tenancy; there is no trial and no developer sandbox.
-  image: https://www.yardi.com/wp-content/themes/cmw-standard-v2-theme/images/icons/apple-touch-icon-152x152.png
+  image: >-
+    https://www.yardi.com/wp-content/themes/cmw-standard-v2-theme/images/icons/apple-touch-icon-152x152.png
   humanURL: https://claude.com/connectors/yardi-virtuoso
   baseURL: https://mcp.virtuoso.ai
   tags:
@@ -197,43 +188,81 @@ apis:
   - type: Authentication
     url: authentication/yardi-canada-authentication.yml
   - type: Documentation
-    url: https://help.virtuoso.ai/en/articles/13679727-yardi-virtuoso-mcp-technical-documentation-guide
+    url: >-
+      https://help.virtuoso.ai/en/articles/13679727-yardi-virtuoso-mcp-technical-documentation-guide
   - type: About
-    url: https://www.yardi.com/news/press-releases/yardi-adds-virtuoso-connector-for-claude-to-its-ai-platform/
-- aid: yardi-canada:yardi-systems-status-api
-  name: Yardi Systems Status API
-  description: >-
-    The only Yardi API that can be called today without a contract. It is the
-    Atlassian Statuspage v2 REST API hosted on Yardi's own status host, with the
-    endpoint list published by Yardi at https://status.yardi.com/api: eight
-    unauthenticated GET endpoints covering the rolled-up page status, the full
-    component tree, incidents (all and unresolved) and scheduled maintenances (all,
-    upcoming and active). The page carries 134 components across 16 product groups —
-    Voyager7s, Voyager8, Breeze, RentCafe and its ANZ/UK/Middle East siblings,
-    CommercialCafe, Elevate, Investor Portal, Kube, Payment Processing, Relief Suite,
-    Resident Screening, VendorCafe and Yardi EHR Interfaces — and seven of those groups
-    expose an explicit Canada component, which makes this the only public,
-    machine-readable read on Yardi Canada's production service health. Canadian
-    incidents and maintenance windows are named outright, for example "Issue impacting
-    Yardi Voyager users in the Canada region" and "Maintenance - Canada Region -
-    Thursday April 23 - 11:00pm EDT". The OpenAPI in this repository was derived by
-    API Evangelist from Yardi's published endpoint list plus verified live 200
-    responses; Yardi publishes no OpenAPI of its own.
-  image: https://www.yardi.com/wp-content/themes/cmw-standard-v2-theme/images/icons/apple-touch-icon-152x152.png
-  humanURL: https://status.yardi.com/api
-  baseURL: https://status.yardi.com/api/v2
+    url: >-
+      https://www.yardi.com/news/press-releases/yardi-adds-virtuoso-connector-for-claude-to-its-ai-platform/
+- aid: yardi-canada:yardi-canada-components-api
+  name: Yardi Canada Components API
+  description: Per-product and per-region service components
+  humanURL: https://www.yardi.com/services/interfaces/standard-interface-options/
+  baseURL: https://mcp.virtuoso.ai
   tags:
-  - Status
-  - Monitoring
-  - Incidents
-  - Maintenance
-  - Canada
-  - Property Management
+  - Components
   properties:
   - type: OpenAPI
-    url: openapi/yardi-canada-status-openapi.yml
-  - type: Overlay
-    url: overlays/yardi-canada-status-overlay.yaml
+    url: openapi/yardi-canada-components-api-openapi.yml
+  - type: DataModel
+    url: data-model/yardi-canada-data-model.yml
+  - type: Conventions
+    url: conventions/yardi-canada-conventions.yml
+  - type: AgenticAccess
+    url: agentic-access/yardi-canada-agentic-access.yml
+  - type: Documentation
+    url: https://status.yardi.com/api
+  - type: StatusPage
+    url: https://status.yardi.com/
+- aid: yardi-canada:yardi-canada-incidents-api
+  name: Yardi Canada Incidents API
+  description: Unplanned service incidents and their updates
+  humanURL: https://www.yardi.com/services/interfaces/standard-interface-options/
+  baseURL: https://mcp.virtuoso.ai
+  tags:
+  - Incidents
+  properties:
+  - type: OpenAPI
+    url: openapi/yardi-canada-incidents-api-openapi.yml
+  - type: DataModel
+    url: data-model/yardi-canada-data-model.yml
+  - type: Conventions
+    url: conventions/yardi-canada-conventions.yml
+  - type: AgenticAccess
+    url: agentic-access/yardi-canada-agentic-access.yml
+  - type: Documentation
+    url: https://status.yardi.com/api
+  - type: StatusPage
+    url: https://status.yardi.com/
+- aid: yardi-canada:yardi-canada-maintenance-api
+  name: Yardi Canada Maintenance API
+  description: Scheduled maintenance windows
+  humanURL: https://www.yardi.com/services/interfaces/standard-interface-options/
+  baseURL: https://mcp.virtuoso.ai
+  tags:
+  - Maintenance
+  properties:
+  - type: OpenAPI
+    url: openapi/yardi-canada-maintenance-api-openapi.yml
+  - type: DataModel
+    url: data-model/yardi-canada-data-model.yml
+  - type: Conventions
+    url: conventions/yardi-canada-conventions.yml
+  - type: AgenticAccess
+    url: agentic-access/yardi-canada-agentic-access.yml
+  - type: Documentation
+    url: https://status.yardi.com/api
+  - type: StatusPage
+    url: https://status.yardi.com/
+- aid: yardi-canada:yardi-canada-status-api
+  name: Yardi Canada Status API
+  description: Rolled-up page status
+  humanURL: https://www.yardi.com/services/interfaces/standard-interface-options/
+  baseURL: https://mcp.virtuoso.ai
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/yardi-canada-status-api-openapi.yml
   - type: DataModel
     url: data-model/yardi-canada-data-model.yml
   - type: Conventions
