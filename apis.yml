@@ -34,6 +34,18 @@ description: >-
   full Atlassian Statuspage with a public JSON API across 134 components in 16 product
   groups, seven of which carry an explicit Canada component — the only anonymous,
   machine-readable signal of Yardi Canada's production service health.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.yardi.com/wp-content/themes/cmw-standard-v2-theme/images/icons/apple-touch-icon-152x152.png
 tags:
 - Real-Estate
