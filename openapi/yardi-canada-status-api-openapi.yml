@@ -1,0 +1,396 @@
+openapi: 3.2.0
+info:
+  title: Yardi Systems Status API
+  version: v2
+  summary: Public, unauthenticated status API for the Yardi Systems status page, including the Canadian regional components Yardi Canada Ltd. clients run on.
+  description: 'The only publicly callable, machine-readable API surface Yardi serves anonymously. It is the Atlassian Statuspage v2 REST API hosted on Yardi''s own status host (page id `3cqj0pmpypxd`, page name "Yardi Systems"), and Yardi publishes the endpoint list itself at https://status.yardi.com/api. The page carries 134 components in 16 groups — Voyager7s, Voyager8, Breeze, RentCafe, RentCafe ANZ, RentCafe UK, RentCafe Middle East, CommercialCafe, Elevate, Investor Portal, Kube, Payment Processing, Relief Suite, Resident Screening, VendorCafe and Yardi EHR Interfaces — several of which expose an explicit `Canada` component (Voyager7s/Canada, Voyager8/Canada, Breeze/Canada, Elevate/Canada, Investor Portal/Canada, Resident Screening/Canada, Yardi EHR Interfaces/Canada). That is the machine-readable seam a Yardi Canada integrator can actually poll.
+
+    This document was DERIVED, not published by Yardi: every path, method and response shape below was confirmed against Yardi''s own published endpoint list and against live 200 responses fetched on 2026-07-26. No endpoint, parameter or field is asserted here that was not observed. Yardi publishes no OpenAPI of its own for this or any other interface.'
+  contact:
+    name: Yardi technical support
+    url: https://www.yardi.com/company/technical-support/
+  x-evidence:
+    documented_endpoint_list: https://status.yardi.com/api
+    probed: '2026-07-26'
+    probe_results:
+    - path: /api/v2/summary.json
+      status: 200
+      bytes: 43811
+    - path: /api/v2/status.json
+      status: 200
+      bytes: 218
+    - path: /api/v2/components.json
+      status: 200
+      bytes: 43698
+    - path: /api/v2/incidents.json
+      status: 200
+      bytes: 184611
+    - path: /api/v2/incidents/unresolved.json
+      status: 200
+      bytes: 163
+    - path: /api/v2/scheduled-maintenances.json
+      status: 200
+      bytes: 275222
+    - path: /api/v2/scheduled-maintenances/upcoming.json
+      status: 200
+      bytes: 176
+    - path: /api/v2/scheduled-maintenances/active.json
+      status: 200
+      bytes: 176
+    platform: Atlassian Statuspage v2 public API, hosted on a Yardi host
+servers:
+- url: https://status.yardi.com/api/v2
+  description: Yardi Systems status page, public and unauthenticated
+tags:
+- name: Status
+  description: Rolled-up page status
+paths:
+  /summary.json:
+    get:
+      operationId: getStatusSummary
+      tags:
+      - Status
+      summary: Get the full status page summary
+      description: Returns the page identity, the rolled-up status indicator, every component (including group components and their children), all unresolved incidents and all upcoming or in-progress scheduled maintenances in one document.
+      security: []
+      responses:
+        '200':
+          description: Status page summary
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - page
+                - components
+                - incidents
+                - scheduled_maintenances
+                - status
+                properties:
+                  page:
+                    $ref: '#/components/schemas/Page'
+                  status:
+                    $ref: '#/components/schemas/StatusIndicator'
+                  components:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Component'
+                  incidents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Incident'
+                  scheduled_maintenances:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScheduledMaintenance'
+              example:
+                page:
+                  id: 3cqj0pmpypxd
+                  name: Yardi Systems
+                  url: https://status.yardi.com
+                  time_zone: Etc/UTC
+                  updated_at: '2026-07-27T01:34:30.213Z'
+                status:
+                  indicator: none
+                  description: All Systems Operational
+                components: []
+                incidents: []
+                scheduled_maintenances: []
+  /status.json:
+    get:
+      operationId: getStatus
+      tags:
+      - Status
+      summary: Get the rolled-up page status
+      description: Returns only the page identity and the single rolled-up status indicator for all Yardi systems.
+      security: []
+      responses:
+        '200':
+          description: Rolled-up status
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - page
+                - status
+                properties:
+                  page:
+                    $ref: '#/components/schemas/Page'
+                  status:
+                    $ref: '#/components/schemas/StatusIndicator'
+              example:
+                page:
+                  id: 3cqj0pmpypxd
+                  name: Yardi Systems
+                  url: https://status.yardi.com
+                  time_zone: Etc/UTC
+                  updated_at: '2026-07-27T01:34:30.213Z'
+                status:
+                  indicator: none
+                  description: All Systems Operational
+components:
+  schemas:
+    Page:
+      type: object
+      description: Identity of the status page itself.
+      required:
+      - id
+      - name
+      - url
+      - updated_at
+      properties:
+        id:
+          type: string
+          examples:
+          - 3cqj0pmpypxd
+        name:
+          type: string
+          examples:
+          - Yardi Systems
+        url:
+          type: string
+          format: uri
+          examples:
+          - https://status.yardi.com
+        time_zone:
+          type: string
+          examples:
+          - Etc/UTC
+        updated_at:
+          type: string
+          format: date-time
+    Component:
+      type: object
+      description: 'One product, region or sub-service tracked on the page. A component with `group: true` is a container whose children are listed in `components`.'
+      required:
+      - id
+      - name
+      - status
+      - page_id
+      - group
+      properties:
+        id:
+          type: string
+          examples:
+          - m5cxlbn41qsg
+        name:
+          type: string
+          examples:
+          - Canada
+        status:
+          type: string
+          examples:
+          - operational
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        position:
+          type: integer
+        description:
+          type:
+          - string
+          - 'null'
+        showcase:
+          type: boolean
+        start_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        group_id:
+          type:
+          - string
+          - 'null'
+          description: Id of the parent group component.
+        page_id:
+          type: string
+        group:
+          type: boolean
+        only_show_if_degraded:
+          type: boolean
+        components:
+          type: array
+          description: Present on group components; ids of the child components.
+          items:
+            type: string
+    ScheduledMaintenance:
+      type: object
+      required:
+      - id
+      - name
+      - status
+      - impact
+      - page_id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          examples:
+          - Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT
+        status:
+          type: string
+          examples:
+          - completed
+        impact:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        started_at:
+          type: string
+          format: date-time
+        monitoring_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        resolved_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        scheduled_for:
+          type: string
+          format: date-time
+        scheduled_until:
+          type: string
+          format: date-time
+        shortlink:
+          type: string
+          format: uri
+        page_id:
+          type: string
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/Component'
+        incident_updates:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncidentUpdate'
+    IncidentUpdate:
+      type: object
+      required:
+      - id
+      - status
+      - body
+      - incident_id
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        body:
+          type: string
+        incident_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        display_at:
+          type: string
+          format: date-time
+        affected_components:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+        deliver_notifications:
+          type: boolean
+        custom_tweet:
+          type:
+          - string
+          - 'null'
+        tweet_id:
+          type:
+          - string
+          - 'null'
+    StatusIndicator:
+      type: object
+      description: Rolled-up status for the whole page.
+      required:
+      - indicator
+      - description
+      properties:
+        indicator:
+          type: string
+          description: Observed value `none`; Yardi's own published example additionally shows `major`.
+          examples:
+          - none
+        description:
+          type: string
+          examples:
+          - All Systems Operational
+    Incident:
+      type: object
+      required:
+      - id
+      - name
+      - status
+      - impact
+      - page_id
+      properties:
+        id:
+          type: string
+          examples:
+          - 5pshx4ms4grv
+        name:
+          type: string
+          examples:
+          - Issue impacting Yardi Voyager users in the Canada region
+        status:
+          type: string
+          examples:
+          - resolved
+        impact:
+          type: string
+          examples:
+          - major
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        started_at:
+          type: string
+          format: date-time
+        monitoring_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        resolved_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        shortlink:
+          type: string
+          format: uri
+        page_id:
+          type: string
+        reminder_intervals:
+          type:
+          - string
+          - 'null'
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/Component'
+        incident_updates:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncidentUpdate'
