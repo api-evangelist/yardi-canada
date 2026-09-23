@@ -1,0 +1,26 @@
+{
+  "provider": "yardi-canada",
+  "sources": [
+    "_original/yardi-canada-status-openapi.yml"
+  ],
+  "outputs": [
+    "yardi-canada-components-api-openapi.yml",
+    "yardi-canada-incidents-api-openapi.yml",
+    "yardi-canada-maintenance-api-openapi.yml",
+    "yardi-canada-status-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "yardi-canada-status-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "yardi-canada-components-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yardi-canada-incidents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yardi-canada-maintenance-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yardi-canada-status-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

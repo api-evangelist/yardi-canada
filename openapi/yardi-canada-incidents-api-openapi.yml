@@ -3,9 +3,7 @@ info:
   title: Yardi Systems Status Incidents API
   version: v2
   summary: Public, unauthenticated status API for the Yardi Systems status page, including the Canadian regional components Yardi Canada Ltd. clients run on.
-  description: 'The only publicly callable, machine-readable API surface Yardi serves anonymously. It is the Atlassian Statuspage v2 REST API hosted on Yardi''s own status host (page id `3cqj0pmpypxd`, page name "Yardi Systems"), and Yardi publishes the endpoint list itself at https://status.yardi.com/api. The page carries 134 components in 16 groups — Voyager7s, Voyager8, Breeze, RentCafe, RentCafe ANZ, RentCafe UK, RentCafe Middle East, CommercialCafe, Elevate, Investor Portal, Kube, Payment Processing, Relief Suite, Resident Screening, VendorCafe and Yardi EHR Interfaces — several of which expose an explicit `Canada` component (Voyager7s/Canada, Voyager8/Canada, Breeze/Canada, Elevate/Canada, Investor Portal/Canada, Resident Screening/Canada, Yardi EHR Interfaces/Canada). That is the machine-readable seam a Yardi Canada integrator can actually poll.
-
-    This document was DERIVED, not published by Yardi: every path, method and response shape below was confirmed against Yardi''s own published endpoint list and against live 200 responses fetched on 2026-07-26. No endpoint, parameter or field is asserted here that was not observed. Yardi publishes no OpenAPI of its own for this or any other interface.'
+  description: The only publicly callable, machine-readable API surface Yardi serves anonymously.
   contact:
     name: Yardi technical support
     url: https://www.yardi.com/company/technical-support/
@@ -97,6 +95,47 @@ paths:
                       $ref: '#/components/schemas/Incident'
 components:
   schemas:
+    IncidentUpdate:
+      type: object
+      required:
+      - id
+      - status
+      - body
+      - incident_id
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        body:
+          type: string
+        incident_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        display_at:
+          type: string
+          format: date-time
+        affected_components:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+        deliver_notifications:
+          type: boolean
+        custom_tweet:
+          type:
+          - string
+          - 'null'
+        tweet_id:
+          type:
+          - string
+          - 'null'
     Page:
       type: object
       description: Identity of the status page itself.
@@ -183,47 +222,6 @@ components:
           description: Present on group components; ids of the child components.
           items:
             type: string
-    IncidentUpdate:
-      type: object
-      required:
-      - id
-      - status
-      - body
-      - incident_id
-      properties:
-        id:
-          type: string
-        status:
-          type: string
-        body:
-          type: string
-        incident_id:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        display_at:
-          type: string
-          format: date-time
-        affected_components:
-          type:
-          - array
-          - 'null'
-          items:
-            type: object
-        deliver_notifications:
-          type: boolean
-        custom_tweet:
-          type:
-          - string
-          - 'null'
-        tweet_id:
-          type:
-          - string
-          - 'null'
     Incident:
       type: object
       required:
