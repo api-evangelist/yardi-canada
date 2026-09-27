@@ -63,7 +63,7 @@ accessModel:
   method: derived
 image: https://www.yardi.com/wp-content/themes/cmw-standard-v2-theme/images/icons/apple-touch-icon-152x152.png
 tags:
-- Real-Estate
+- Real Estate
 - Canada
 - Property Management
 - Rentals
@@ -92,6 +92,7 @@ tags_raw:
 - Payments
 - MCP
 - AI
+- Real-Estate
 created: '2026-07-26'
 modified: '2026-07-26'
 specificationVersion: '0.23'
