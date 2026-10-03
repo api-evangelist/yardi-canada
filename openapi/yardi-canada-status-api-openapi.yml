@@ -199,7 +199,23 @@ components:
         updated_at:
           type: string
           format: date-time
-    ScheduledMaintenance:
+    StatusIndicator:
+      type: object
+      description: Rolled-up status for the whole page.
+      required:
+      - indicator
+      - description
+      properties:
+        indicator:
+          type: string
+          description: Observed value `none`; Yardi's own published example additionally shows `major`.
+          examples:
+          - none
+        description:
+          type: string
+          examples:
+          - All Systems Operational
+    Incident:
       type: object
       required:
       - id
@@ -210,16 +226,20 @@ components:
       properties:
         id:
           type: string
+          examples:
+          - 5pshx4ms4grv
         name:
           type: string
           examples:
-          - Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT
+          - Issue impacting Yardi Voyager users in the Canada region
         status:
           type: string
           examples:
-          - completed
+          - resolved
         impact:
           type: string
+          examples:
+          - major
         created_at:
           type: string
           format: date-time
@@ -239,17 +259,15 @@ components:
           - string
           - 'null'
           format: date-time
-        scheduled_for:
-          type: string
-          format: date-time
-        scheduled_until:
-          type: string
-          format: date-time
         shortlink:
           type: string
           format: uri
         page_id:
           type: string
+        reminder_intervals:
+          type:
+          - string
+          - 'null'
         components:
           type: array
           items:
@@ -315,7 +333,7 @@ components:
           description: Present on group components; ids of the child components.
           items:
             type: string
-    Incident:
+    ScheduledMaintenance:
       type: object
       required:
       - id
@@ -326,20 +344,16 @@ components:
       properties:
         id:
           type: string
-          examples:
-          - 5pshx4ms4grv
         name:
           type: string
           examples:
-          - Issue impacting Yardi Voyager users in the Canada region
+          - Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT
         status:
           type: string
           examples:
-          - resolved
+          - completed
         impact:
           type: string
-          examples:
-          - major
         created_at:
           type: string
           format: date-time
@@ -359,15 +373,17 @@ components:
           - string
           - 'null'
           format: date-time
+        scheduled_for:
+          type: string
+          format: date-time
+        scheduled_until:
+          type: string
+          format: date-time
         shortlink:
           type: string
           format: uri
         page_id:
           type: string
-        reminder_intervals:
-          type:
-          - string
-          - 'null'
         components:
           type: array
           items:
@@ -376,19 +392,3 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/IncidentUpdate'
-    StatusIndicator:
-      type: object
-      description: Rolled-up status for the whole page.
-      required:
-      - indicator
-      - description
-      properties:
-        indicator:
-          type: string
-          description: Observed value `none`; Yardi's own published example additionally shows `major`.
-          examples:
-          - none
-        description:
-          type: string
-          examples:
-          - All Systems Operational
