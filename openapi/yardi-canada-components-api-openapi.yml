@@ -70,6 +70,35 @@ paths:
                       $ref: '#/components/schemas/Component'
 components:
   schemas:
+    Page:
+      type: object
+      description: Identity of the status page itself.
+      required:
+      - id
+      - name
+      - url
+      - updated_at
+      properties:
+        id:
+          type: string
+          examples:
+          - 3cqj0pmpypxd
+        name:
+          type: string
+          examples:
+          - Yardi Systems
+        url:
+          type: string
+          format: uri
+          examples:
+          - https://status.yardi.com
+        time_zone:
+          type: string
+          examples:
+          - Etc/UTC
+        updated_at:
+          type: string
+          format: date-time
     Component:
       type: object
       description: 'One product, region or sub-service tracked on the page. A component with `group: true` is a container whose children are listed in `components`.'
@@ -127,32 +156,3 @@ components:
           description: Present on group components; ids of the child components.
           items:
             type: string
-    Page:
-      type: object
-      description: Identity of the status page itself.
-      required:
-      - id
-      - name
-      - url
-      - updated_at
-      properties:
-        id:
-          type: string
-          examples:
-          - 3cqj0pmpypxd
-        name:
-          type: string
-          examples:
-          - Yardi Systems
-        url:
-          type: string
-          format: uri
-          examples:
-          - https://status.yardi.com
-        time_zone:
-          type: string
-          examples:
-          - Etc/UTC
-        updated_at:
-          type: string
-          format: date-time
