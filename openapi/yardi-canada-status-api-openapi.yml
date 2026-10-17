@@ -129,6 +129,63 @@ paths:
                   description: All Systems Operational
 components:
   schemas:
+    Component:
+      type: object
+      description: 'One product, region or sub-service tracked on the page. A component with `group: true` is a container whose children are listed in `components`.'
+      required:
+      - id
+      - name
+      - status
+      - page_id
+      - group
+      properties:
+        id:
+          type: string
+          examples:
+          - m5cxlbn41qsg
+        name:
+          type: string
+          examples:
+          - Canada
+        status:
+          type: string
+          examples:
+          - operational
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        position:
+          type: integer
+        description:
+          type:
+          - string
+          - 'null'
+        showcase:
+          type: boolean
+        start_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        group_id:
+          type:
+          - string
+          - 'null'
+          description: Id of the parent group component.
+        page_id:
+          type: string
+        group:
+          type: boolean
+        only_show_if_degraded:
+          type: boolean
+        components:
+          type: array
+          description: Present on group components; ids of the child components.
+          items:
+            type: string
     IncidentUpdate:
       type: object
       required:
@@ -186,67 +243,6 @@ components:
           type: string
           examples:
           - All Systems Operational
-    Incident:
-      type: object
-      required:
-      - id
-      - name
-      - status
-      - impact
-      - page_id
-      properties:
-        id:
-          type: string
-          examples:
-          - 5pshx4ms4grv
-        name:
-          type: string
-          examples:
-          - Issue impacting Yardi Voyager users in the Canada region
-        status:
-          type: string
-          examples:
-          - resolved
-        impact:
-          type: string
-          examples:
-          - major
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        started_at:
-          type: string
-          format: date-time
-        monitoring_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        resolved_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        shortlink:
-          type: string
-          format: uri
-        page_id:
-          type: string
-        reminder_intervals:
-          type:
-          - string
-          - 'null'
-        components:
-          type: array
-          items:
-            $ref: '#/components/schemas/Component'
-        incident_updates:
-          type: array
-          items:
-            $ref: '#/components/schemas/IncidentUpdate'
     ScheduledMaintenance:
       type: object
       required:
@@ -335,60 +331,64 @@ components:
         updated_at:
           type: string
           format: date-time
-    Component:
+    Incident:
       type: object
-      description: 'One product, region or sub-service tracked on the page. A component with `group: true` is a container whose children are listed in `components`.'
       required:
       - id
       - name
       - status
+      - impact
       - page_id
-      - group
       properties:
         id:
           type: string
           examples:
-          - m5cxlbn41qsg
+          - 5pshx4ms4grv
         name:
           type: string
           examples:
-          - Canada
+          - Issue impacting Yardi Voyager users in the Canada region
         status:
           type: string
           examples:
-          - operational
+          - resolved
+        impact:
+          type: string
+          examples:
+          - major
         created_at:
           type: string
           format: date-time
         updated_at:
           type: string
           format: date-time
-        position:
-          type: integer
-        description:
+        started_at:
+          type: string
+          format: date-time
+        monitoring_at:
           type:
           - string
           - 'null'
-        showcase:
-          type: boolean
-        start_date:
+          format: date-time
+        resolved_at:
           type:
           - string
           - 'null'
-          format: date
-        group_id:
-          type:
-          - string
-          - 'null'
-          description: Id of the parent group component.
+          format: date-time
+        shortlink:
+          type: string
+          format: uri
         page_id:
           type: string
-        group:
-          type: boolean
-        only_show_if_degraded:
-          type: boolean
+        reminder_intervals:
+          type:
+          - string
+          - 'null'
         components:
           type: array
-          description: Present on group components; ids of the child components.
           items:
-            type: string
+            $ref: '#/components/schemas/Component'
+        incident_updates:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncidentUpdate'

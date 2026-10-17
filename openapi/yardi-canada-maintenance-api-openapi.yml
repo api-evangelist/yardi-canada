@@ -120,94 +120,6 @@ paths:
                       $ref: '#/components/schemas/ScheduledMaintenance'
 components:
   schemas:
-    ScheduledMaintenance:
-      type: object
-      required:
-      - id
-      - name
-      - status
-      - impact
-      - page_id
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-          examples:
-          - Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT
-        status:
-          type: string
-          examples:
-          - completed
-        impact:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        started_at:
-          type: string
-          format: date-time
-        monitoring_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        resolved_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        scheduled_for:
-          type: string
-          format: date-time
-        scheduled_until:
-          type: string
-          format: date-time
-        shortlink:
-          type: string
-          format: uri
-        page_id:
-          type: string
-        components:
-          type: array
-          items:
-            $ref: '#/components/schemas/Component'
-        incident_updates:
-          type: array
-          items:
-            $ref: '#/components/schemas/IncidentUpdate'
-    Page:
-      type: object
-      description: Identity of the status page itself.
-      required:
-      - id
-      - name
-      - url
-      - updated_at
-      properties:
-        id:
-          type: string
-          examples:
-          - 3cqj0pmpypxd
-        name:
-          type: string
-          examples:
-          - Yardi Systems
-        url:
-          type: string
-          format: uri
-          examples:
-          - https://status.yardi.com
-        time_zone:
-          type: string
-          examples:
-          - Etc/UTC
-        updated_at:
-          type: string
-          format: date-time
     Component:
       type: object
       description: 'One product, region or sub-service tracked on the page. A component with `group: true` is a container whose children are listed in `components`.'
@@ -306,3 +218,91 @@ components:
           type:
           - string
           - 'null'
+    Page:
+      type: object
+      description: Identity of the status page itself.
+      required:
+      - id
+      - name
+      - url
+      - updated_at
+      properties:
+        id:
+          type: string
+          examples:
+          - 3cqj0pmpypxd
+        name:
+          type: string
+          examples:
+          - Yardi Systems
+        url:
+          type: string
+          format: uri
+          examples:
+          - https://status.yardi.com
+        time_zone:
+          type: string
+          examples:
+          - Etc/UTC
+        updated_at:
+          type: string
+          format: date-time
+    ScheduledMaintenance:
+      type: object
+      required:
+      - id
+      - name
+      - status
+      - impact
+      - page_id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          examples:
+          - Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT
+        status:
+          type: string
+          examples:
+          - completed
+        impact:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        started_at:
+          type: string
+          format: date-time
+        monitoring_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        resolved_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        scheduled_for:
+          type: string
+          format: date-time
+        scheduled_until:
+          type: string
+          format: date-time
+        shortlink:
+          type: string
+          format: uri
+        page_id:
+          type: string
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/Component'
+        incident_updates:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncidentUpdate'

@@ -95,133 +95,6 @@ paths:
                       $ref: '#/components/schemas/Incident'
 components:
   schemas:
-    Page:
-      type: object
-      description: Identity of the status page itself.
-      required:
-      - id
-      - name
-      - url
-      - updated_at
-      properties:
-        id:
-          type: string
-          examples:
-          - 3cqj0pmpypxd
-        name:
-          type: string
-          examples:
-          - Yardi Systems
-        url:
-          type: string
-          format: uri
-          examples:
-          - https://status.yardi.com
-        time_zone:
-          type: string
-          examples:
-          - Etc/UTC
-        updated_at:
-          type: string
-          format: date-time
-    IncidentUpdate:
-      type: object
-      required:
-      - id
-      - status
-      - body
-      - incident_id
-      properties:
-        id:
-          type: string
-        status:
-          type: string
-        body:
-          type: string
-        incident_id:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        display_at:
-          type: string
-          format: date-time
-        affected_components:
-          type:
-          - array
-          - 'null'
-          items:
-            type: object
-        deliver_notifications:
-          type: boolean
-        custom_tweet:
-          type:
-          - string
-          - 'null'
-        tweet_id:
-          type:
-          - string
-          - 'null'
-    Component:
-      type: object
-      description: 'One product, region or sub-service tracked on the page. A component with `group: true` is a container whose children are listed in `components`.'
-      required:
-      - id
-      - name
-      - status
-      - page_id
-      - group
-      properties:
-        id:
-          type: string
-          examples:
-          - m5cxlbn41qsg
-        name:
-          type: string
-          examples:
-          - Canada
-        status:
-          type: string
-          examples:
-          - operational
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        position:
-          type: integer
-        description:
-          type:
-          - string
-          - 'null'
-        showcase:
-          type: boolean
-        start_date:
-          type:
-          - string
-          - 'null'
-          format: date
-        group_id:
-          type:
-          - string
-          - 'null'
-          description: Id of the parent group component.
-        page_id:
-          type: string
-        group:
-          type: boolean
-        only_show_if_degraded:
-          type: boolean
-        components:
-          type: array
-          description: Present on group components; ids of the child components.
-          items:
-            type: string
     Incident:
       type: object
       required:
@@ -283,3 +156,130 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/IncidentUpdate'
+    IncidentUpdate:
+      type: object
+      required:
+      - id
+      - status
+      - body
+      - incident_id
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        body:
+          type: string
+        incident_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        display_at:
+          type: string
+          format: date-time
+        affected_components:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+        deliver_notifications:
+          type: boolean
+        custom_tweet:
+          type:
+          - string
+          - 'null'
+        tweet_id:
+          type:
+          - string
+          - 'null'
+    Page:
+      type: object
+      description: Identity of the status page itself.
+      required:
+      - id
+      - name
+      - url
+      - updated_at
+      properties:
+        id:
+          type: string
+          examples:
+          - 3cqj0pmpypxd
+        name:
+          type: string
+          examples:
+          - Yardi Systems
+        url:
+          type: string
+          format: uri
+          examples:
+          - https://status.yardi.com
+        time_zone:
+          type: string
+          examples:
+          - Etc/UTC
+        updated_at:
+          type: string
+          format: date-time
+    Component:
+      type: object
+      description: 'One product, region or sub-service tracked on the page. A component with `group: true` is a container whose children are listed in `components`.'
+      required:
+      - id
+      - name
+      - status
+      - page_id
+      - group
+      properties:
+        id:
+          type: string
+          examples:
+          - m5cxlbn41qsg
+        name:
+          type: string
+          examples:
+          - Canada
+        status:
+          type: string
+          examples:
+          - operational
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        position:
+          type: integer
+        description:
+          type:
+          - string
+          - 'null'
+        showcase:
+          type: boolean
+        start_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        group_id:
+          type:
+          - string
+          - 'null'
+          description: Id of the parent group component.
+        page_id:
+          type: string
+        group:
+          type: boolean
+        only_show_if_degraded:
+          type: boolean
+        components:
+          type: array
+          description: Present on group components; ids of the child components.
+          items:
+            type: string
