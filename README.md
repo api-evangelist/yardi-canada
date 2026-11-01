@@ -1,4 +1,4 @@
-# Yardi Canada (yardi-canada)
+# Yardi Canada
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,148 +64,131 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Yardi Canada Ltd. is the Canadian subsidiary of Yardi Systems, Inc. (Goleta, California), opened in Mississauga in 1998 and now headquartered in Toronto with regional offices in Saskatoon and Vancouver and roughly 500 staff. It sells, implements and supports the Yardi property and investment management stack in Canada — Voyager, Breeze Premier, RentCafe, Home IQ, Matrix and Pulse — across residential, commercial, affordable, senior living and investment portfolios, and its Canadian footprint grew by acquisition: Point2 Technologies in Saskatoon in 2010, an EnerNOC division in Vancouver in 2016, and Planimetron in Toronto in 2022. It sits on the systems-of-record rung of the value chain rather than the listing or land-registration rung — it is the ledger and operating platform a landlord or asset manager runs on, not a portal like REALTOR.ca and not a registry operator like Teranet. Its API posture, stated honestly, is licensed-access-only and partner-gated. There is no public developer portal: `developer.`, `developers.`, `api.` and `docs.` hosts do not resolve on either `yardi.ca` or `yardi.com`, and the primary Canadian domain `yardi.ca` — registered to Yardi Systems, Inc. since 2003 — resolves to 104.156.161.80 but serves no web content at all (TCP 443 and 80 both time out). Real interfaces exist, but only behind the Interface Partnership Program: an application, a signed Data Exchange Agreement per interface type, a company at least two years old with three or more active Voyager clients, and an annual per-interface fee. RESO is absent entirely — Yardi appears nowhere in the RESO certification directory — which is the expected result for a Canadian property management vendor, because Canadian residential listings move through CREA's DDF and REALTOR.ca rather than through RESO-certified MLS endpoints.
+Yardi Canada Ltd. is the Canadian subsidiary of Yardi Systems, Inc. (Goleta, California), opened in Mississauga in 1998 and now headquartered in Toronto with regional offices in Saskatoon and Vancouver and roughly 500 staff. It sells, implements and supports the Yardi property and investment management stack in Canada — Voyager, Breeze Premier, RentCafe, Home IQ, Matrix and Pulse — across residential, commercial, affordable, senior living and investment portfolios, and its Canadian footprint grew by acquisition: Point2 Technologies in Saskatoon in 2010, an EnerNOC division in Vancouver in 2016, and Planimetron in Toronto in 2022. It sits on the systems-of-record rung of the value chain rather than the listing or land-registration rung — it is the ledger and operating platform a landlord or asset manager runs on, not a portal like REALTOR.ca and not a registry operator like Teranet. Its API posture, stated honestly, is licensed-access-only and partner-gated. There is no public developer portal: developer., developers., api. and docs. hosts do not resolve on either yardi.ca or yardi.com, and the primary Canadian domain yardi.ca — registered to Yardi Systems, Inc. since 2003 — resolves to 104.156.161.80 but serves no web content at all (TCP 443 and 80 both time out). Real interfaces exist, but only behind the Interface Partnership Program: an application, a signed Data Exchange Agreement per interface type, a company at least two years old with three or more active Voyager clients, and an annual per-interface fee. RESO is absent entirely — Yardi appears nowhere in the RESO certification directory — which is the expected result for a Canadian property management vendor, because Canadian residential listings move through CREA's DDF and REALTOR.ca rather than through RESO-certified MLS endpoints. Two public, machine-readable surfaces do exist and neither of them is REST. Yardi ships a first-party MCP server — the Yardi Virtuoso Connector, listed on the Anthropic connector directory and served from mcp.virtuoso.ai — whose OAuth 2.1 authorization contract (RFC 8414 and RFC 9728 metadata, PKCE, dynamic client registration) is published anonymously even though its tool list is not. And status.yardi.com runs a full Atlassian Statuspage with a public JSON API across 134 components in 16 product groups, seven of which carry an explicit Canada component — the only anonymous, machine-readable signal of Yardi Canada's production service health.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/yardi-canada/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/yardi-canada/refs/heads/main/apis.yml)
+**Areas:** Real Estate · Canada · Property Management · Rentals · Commercial Real Estate · PropTech · Multifamily · Affordable Housing · Senior Living · Investment Management · Tenancy · Payments
 
-## Tags
+## Yardi Canada on APIs.io
 
-- Real Estate
-- Canada
-- Property Management
-- Rentals
-- Commercial Real Estate
-- PropTech
-- Multifamily
-- Affordable Housing
-- Senior Living
-- Investment Management
-- Tenancy
-- Payments
+Everything profiled for Yardi Canada is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/yardi-canada/](https://apis.io/providers/yardi-canada/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (7)
 
-- **Created:** 2026-07-26
-- **Modified:** 2026-07-26
+- [Yardi Voyager Standard Interfaces](https://apis.io/apis/yardi-canada/yardi-voyager-standard-interfaces/) — The documented family of Voyager web-service interfaces that Yardi Canada clients and their vendors integrate against — Collections, Commercial,…
+- [RentCafe API](https://apis.io/apis/yardi-canada/rentcafe-api/) — The RentCafe marketing, leasing and resident-services API, used by Yardi Canada's multifamily clients and their vendors. Yardi's published RentCafe API…
+- [Yardi Virtuoso Connector (MCP)](https://apis.io/apis/yardi-canada/yardi-virtuoso-connector-mcp/) — Yardi's first-party Model Context Protocol server, announced in early access on 2025-09-10 and described as available now in Virtuoso Enterprise on…
+- [Yardi Canada Components API](https://apis.io/apis/yardi-canada/yardi-canada-components-api/) — Per-product and per-region service components
+- [Yardi Canada Incidents API](https://apis.io/apis/yardi-canada/yardi-canada-incidents-api/) — Unplanned service incidents and their updates
+- [Yardi Canada Maintenance API](https://apis.io/apis/yardi-canada/yardi-canada-maintenance-api/) — Scheduled maintenance windows
+- [Yardi Canada Status API](https://apis.io/apis/yardi-canada/yardi-canada-status-api/) — Rolled-up page status
 
-## APIs
+### Published properties
 
-Two real, documented interface programs are listed — and neither is reachable without a signed commercial agreement. Both are listed **without a base URL**, because Yardi publishes none and the commonly-cited `api.yardi.com` host does not resolve (NXDOMAIN).
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Yardi Voyager Standard Interfaces
+#### MCP servers (1)
 
-The documented family of Voyager web-service interfaces that Yardi Canada clients and their vendors integrate against — Collections, Commercial, Construction, Internet Listing Service (ILS) and Guest Card, Maintenance, Master Data, Payables, Receivables, Renters Insurance, Revenue, Screening, and Senior Living EHR/eMAR. Several are described by Yardi as MITS-based or MITS-compliant; the Commercial interface is described as built on the OSCRE standard. The contracting party is Yardi Systems, Inc.; Yardi Canada Ltd. is the Canadian delivery and support entity. No base URL, endpoint list, WSDL, OpenAPI or OData `$metadata` document is published anywhere public.
+Model Context Protocol servers that expose the API to agents.
 
-- **Human URL:** [https://www.yardi.com/services/interfaces/standard-interface-options/](https://www.yardi.com/services/interfaces/standard-interface-options/)
+- [Yardi Virtuoso](https://apis.io/servers/yardi-canada/yardi-virtuoso/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://www.yardi.com/services/interfaces/standard-interface-options/)
-- [Getting Started](https://www.yardi.com/company/become-an-interface-partner/)
-- [Partners](https://www.yardi.com/company/become-an-interface-partner/)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### RentCafe API
+- [Yardi Canada Agentic Access](https://apis.io/agentic-access/yardi-canada/yardi-canada-agentic-access/)
 
-The RentCafe marketing, leasing and resident-services API, used by Yardi Canada's multifamily clients and their vendors. Yardi's published RentCafe API Terms of Use names concrete operations in its Schedule A — `getapartmentavailability`, `getfloorplans`, `getunitpricingdetails`, `getpropertydetails`, `getamenities`, `getofficehours`, `createlead`, `getavailableslots` and `createappointment` — and states that use "is by way of that certain RentCafe API Access Agreement between you and Yardi Systems, Inc." Access is restricted to vendors serving "Common Clients", credentials are described only as an access token, and the vendor may not pass Common Client Data to third parties. `https://www.rentcafe.com/api/` no longer serves documentation.
+#### Collections (1)
 
-- **Human URL:** [https://resources.yardi.com/legal/rc-api-tou/](https://resources.yardi.com/legal/rc-api-tou/)
+Postman and Open Collection request collections.
 
-#### Properties
+- [Yardi Systems Status API](https://apis.io/collections/yardi-canada/open-yardi-canada-status/)
 
-- [Terms of Service](https://resources.yardi.com/legal/rc-api-tou/)
-- [Getting Started](https://www.yardi.com/company/become-an-interface-partner/)
-- [Documentation](https://www.yardi.com/products/rentcafe/)
+#### Overlays (1)
 
-See [review.yml](review.yml) for the full probe log, RESO posture, access gate, open-data assessment and auth model.
+OpenAPI overlays, including conversational phrasing for each operation.
 
-## Sector Posture
+- [Yardi Canada Status Overlay](https://apis.io/overlays/yardi-canada/yardi-canada-status-overlay/)
 
-| Fact | Finding |
-| --- | --- |
-| Home market | Canada |
-| Tier | Property management |
-| RESO posture | No RESO reference found — the full RESO certification directory contains zero Yardi, Point2 or RentCafe entries; Canadian RESO certification sits with the boards (ITSO, Vancouver Island REB, Victoria REB) |
-| RESO certified | No |
-| Access gate | `partner-only` — Interface Partnership Program application, a Data Exchange Agreement per interface type, 2+ years in business, 3+ active Voyager clients, annual per-interface fee; the RentCafe API additionally requires a RentCafe API Access Agreement and confines use to "Common Clients" |
-| Open data | No — Yardi Matrix and Canadian rent research are subscription products; Canada's open counterweight is weak because land registration is privatised (Teranet) and listings sit with a single national co-operative (CREA DDF) |
-| Auth model | Opaque access token issued under contract; no scheme documented, and no OpenID Connect discovery document is served on `www.yardi.com` or `www.yardibreeze.ca` (both 404) |
-| Machine-readable public surface | **Corrected 2026-07-26** — two exist, and neither is REST-with-a-portal: an official first-party MCP server (`https://mcp.virtuoso.ai`, with anonymous RFC 8414 / RFC 9728 OAuth metadata) and a public status API (`https://status.yardi.com/api/v2`, 8 unauthenticated endpoints). Still no OpenAPI published by Yardi, no OData `$metadata`, no AsyncAPI, no GraphQL, no SDK, no CLI, no Postman collection, no webhooks |
-| Primary domain | `yardi.ca` resolves to 104.156.161.80 but serves nothing; the live Canadian site is `www.yardibreeze.ca` |
+#### Security (3)
 
-## Common Properties
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Yardi Canada Authentication](https://apis.io/security/yardi-canada/yardi-canada-authentication/)
+- [Yardi Canada Domain Security](https://apis.io/security/yardi-canada/yardi-canada-domain-security/)
+- [Yardi Canada Trust Center](https://apis.io/security/yardi-canada/yardi-canada-trust-center/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Yardi Canada Scopes](https://apis.io/scopes/yardi-canada/yardi-canada-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.yardibreeze.ca/)
-- [Website](https://www.yardi.com/)
-- [About](https://www.yardi.com/blog/global/yardi-canada-ltd-celebrates-25-years/37395.html)
-- [Partners](https://www.yardi.com/company/become-an-interface-partner/)
 - [Documentation](https://www.yardi.com/services/interfaces/standard-interface-options/)
-- [Terms of Service](https://resources.yardi.com/legal/rc-api-tou/)
-- [Solutions](https://info.yardi.com/asset-management-software-for-canada)
-- [GitHub Organization](https://github.com/YardiSystems)
-- [LinkedIn](https://www.linkedin.com/company/yardi)
+- [Support](https://www.yardi.com/company/technical-support/)
+- [Blog](https://www.yardibreeze.ca/blog/)
+- [Compliance](https://www.yardi.com/company/cloud-security/)
+- [Terms of service](https://resources.yardi.com/legal/rc-api-tou/)
+- [Privacy policy](https://resources.yardi.com/legal/privacy-statement/)
+- [GitHub](https://github.com/YardiSystems)
+- [Status](https://status.yardi.com/)
 
-## Maintainers
+## API Evangelist rating
 
-- Kin Lane — kin@apievangelist.com
+**Kin Score 55.7** — strong · rubric 0.25.0 · scored 2026-10-23
 
-## Enrichment round 2 (2026-07-26)
+| Facet | Score |
+|---|---|
+| Discoverability | 60.8 |
+| Contract quality | 45.8 |
+| Contract governance | 18.2 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 42.3 |
+| Access clarity | 100.0 |
 
-Round 1 recorded "no machine-readable contract to capture". Probing the hosts round 1
-never reached corrected that in two places. The access gate is unchanged — the Voyager
-Standard Interfaces and the RentCafe API are still partner-only with no published
-contract — but Yardi's public surface is not empty.
+**Agent readiness 48.0** — agent-ready (gated down from agent-native)
 
-### Yardi ships an official MCP server
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | served (partial credit) |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
 
-The **Yardi Virtuoso Connector** is listed on the Anthropic connector directory
-([claude.com/connectors/yardi-virtuoso](https://claude.com/connectors/yardi-virtuoso))
-and served from `https://mcp.virtuoso.ai`. Announced in early access 2025-09-10 and as
-available-now in Virtuoso Enterprise 2026-06-16, declared **Read & Write**, with
-published capabilities for portfolio performance, financial data and NOI comparison,
-work order management, invoice review and approval, quarterly business review and
-budget forecasting.
+**Regulatory alignment 40.0** — Payments
 
-Its authorization contract is anonymous and genuinely machine-readable — RFC 9728
-protected-resource metadata and RFC 8414 authorization-server metadata, both saved
-verbatim in [`well-known/`](well-known/): OAuth 2.1 authorization code, PKCE `S256`,
-refresh tokens, dynamic client registration, scopes `openid profile email
-offline_access`. Those scopes carry identity only; Yardi states data access follows the
-caller's existing Yardi user permissions.
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/yardi-canada/](https://apis.io/providers/yardi-canada/).
 
-**No tool names are recorded in this repository.** Anonymous `tools/list` is blocked by
-Cloudflare (HTML 403 on `/mcp`, `/sse`, `/v1/mcp`, `/api/mcp`, `/mcp/v1` and `/`), and
-the connector's technical documentation returns HTTP 401. Tool lists published by
-third-party MCP directories were deliberately not copied in.
+## How this profile is made
 
-### A public, Canada-sliced status API
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-`https://status.yardi.com` is a full Atlassian Statuspage whose eight JSON endpoints
-Yardi documents itself at [status.yardi.com/api](https://status.yardi.com/api). All
-eight return HTTP 200 anonymously. The page carries **134 components in 16 product
-groups**, and seven of those groups expose an explicit **Canada** component — Voyager7s,
-Voyager8, Breeze, Elevate, Investor Portal, Resident Screening and Yardi EHR Interfaces.
-Canadian events are named outright ("Issue impacting Yardi Voyager users in the Canada
-region", 2026-07-17; "Maintenance - Canada Region - Thursday April 23 - 11:00pm EDT").
-That makes it the only anonymous, machine-readable read on Yardi Canada's production
-service health, and [`openapi/yardi-canada-status-openapi.yml`](openapi/yardi-canada-status-openapi.yml)
-was derived from Yardi's own published endpoint list plus the verified live responses.
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Yardi Canada: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-### Artifacts added this round
+## Open an issue
 
-| Artifact | What it records |
-| --- | --- |
-| [`openapi/`](openapi/) | The status API, 8 operations, derived from the published endpoint list + verified 200s |
-| [`overlays/`](overlays/) | API Evangelist annotations over that spec, including the Canadian component filter |
-| [`mcp/`](mcp/) | The Virtuoso Connector profile, and a tool crosswalk recording that the MCP and REST surfaces do not overlap at all (binding rate 0.0) |
-| [`well-known/`](well-known/) | Two real OAuth discovery documents, plus every miss across five hosts |
-| [`authentication/`](authentication/) · [`scopes/`](scopes/) | Three coexisting auth regimes; the four published OAuth scopes |
-| [`conformance/`](conformance/) | PCI, SSAE 18 / SOC 1 + SOC 2, SOX, HIPAA, CSA STAR Level 2, FIPS 140-2; MCP authorization, RFC 8414, RFC 9728, PKCE, DCR; no RESO, no OData, no RFC 9457 |
-| [`security/`](security/) | The Cloud Security page as trust surface; TLS/HSTS/DNS probes across five hosts (no DNSSEC, no CAA, no DMARC on `yardibreeze.ca`) |
-| [`lifecycle/`](lifecycle/) · [`changelog/`](changelog/) | Status page detail and Canadian incident history; seasonal Breeze Premier release posts; no deprecation policy, no SLA, no API changelog |
-| [`conventions/`](conventions/) · [`data-model/`](data-model/) | What is knowable per surface (idempotency is genuinely absent); the status entity graph and how to resolve the Canadian slice |
-| [`packages/`](packages/) | Zero official SDKs; two community clients, one a SOAP client that corroborates the interface style |
-| [`sandbox/`](sandbox/) | A real vendor sandbox that no developer can reach |
-| [`skills/`](skills/) | Three agent skills grounded in verified operationIds and verified OAuth metadata |
-| [`llms/`](llms/) | A generated llms.txt — Yardi's `robots.txt` allows `/llms.txt` for AI crawlers, but that file 404s |
-
-See [review.yml](review.yml) `enrichmentRound2` for the full probe log.
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/yardi-canada/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
